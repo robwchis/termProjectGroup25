@@ -9,11 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.jetbrains.handson.mpp.termproject25.databinding.FragmentFirstBinding;
+import com.jetbrains.handson.mpp.termproject25.databinding.FragmentSecondBinding;
+import com.jetbrains.handson.mpp.termproject25.databinding.FragmentThirdBinding;
 
-public class FirstFragment extends Fragment {
+public class ThirdFragment extends Fragment {
 
-    private FragmentFirstBinding binding;
+    private FragmentThirdBinding binding;
 
     @Override
     public View onCreateView(
@@ -21,7 +22,7 @@ public class FirstFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = FragmentThirdBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -29,24 +30,14 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.btnSignup.setOnClickListener(new View.OnClickListener() {
+        binding.btnConfirmLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-            }
-        });
-
-        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_thirdFragment);
+                NavHostFragment.findNavController(ThirdFragment.this)
+                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
             }
         });
     }
-
-
 
     @Override
     public void onDestroyView() {
