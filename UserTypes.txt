@@ -1,0 +1,21 @@
+User Types:
+
+Admin
+-Manages Courses
+-Manages Accounts (Profs/Students)
+
+Instructors
+-Assign self to course
+-specify course info
+	-Date,
+	-Hours
+	-Description
+	-Capacity
+
+Students
+-Search for course
+	-by code
+	-by name
+	-by day
+-enroll/unenroll in course
+
