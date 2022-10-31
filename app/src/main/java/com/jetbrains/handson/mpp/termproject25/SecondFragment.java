@@ -16,14 +16,11 @@ import com.jetbrains.handson.mpp.termproject25.databinding.FragmentSecondBinding
 public class SecondFragment extends Fragment {
 
     //xml stuff
-    EditText username;
-
-    ArrayAdapter adapter;
 
     private FragmentSecondBinding binding;
 
     EditText etUsername, etPassword;
-    userDBHandler userDB = new userDBHandler(this);
+    userDBHandler userDB = new userDBHandler(this.getContext());
 
     @Override
     public View onCreateView(

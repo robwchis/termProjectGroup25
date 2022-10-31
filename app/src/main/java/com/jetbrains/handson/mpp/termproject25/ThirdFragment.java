@@ -1,9 +1,11 @@
 package com.jetbrains.handson.mpp.termproject25;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -13,6 +15,10 @@ import com.jetbrains.handson.mpp.termproject25.databinding.FragmentSecondBinding
 import com.jetbrains.handson.mpp.termproject25.databinding.FragmentThirdBinding;
 
 public class ThirdFragment extends Fragment {
+
+    //XML stuff again
+    EditText etUsername, etPassword;
+    userDBHandler userDB = new userDBHandler(this.getContext());
 
     private FragmentThirdBinding binding;
 
@@ -33,8 +39,23 @@ public class ThirdFragment extends Fragment {
         binding.btnConfirmLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                etUsername = view.findViewById(R.id.txt_userName);
+                etPassword = view.findViewById(R.id.txt_password);
+
+                Cursor cursor = userDB.getData();
+
+                while(cursor.moveToNext()){
+                    if ( (cursor.getString(1).equals(etUsername.getText().toString()) && (cursor.getString(2).equals(etPassword.getText().toString()))) ){
+                        //will be logged in
+                        break;
+                    }
+                }
+
                 NavHostFragment.findNavController(ThirdFragment.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
+
+
             }
         });
     }
