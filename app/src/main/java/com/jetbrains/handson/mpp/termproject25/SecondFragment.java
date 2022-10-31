@@ -22,6 +22,9 @@ public class SecondFragment extends Fragment {
 
     private FragmentSecondBinding binding;
 
+    EditText etUsername, etPassword;
+    userDBHandler userDB = new userDBHandler(this);
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -35,13 +38,22 @@ public class SecondFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setContentView(R.layout.fragment_second);
+
+
+        etUsername = view.findViewById(R.id.txt_userName);
+        etPassword = view.findViewById(R.id.txt_password);
 
         binding.btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String username = txt_userName.getText().toString();
+                String username = etUsername.getText().toString();
+                String password = etPassword.getText().toString();
+                User nUser = new User(username, password, false);
+                userDB.addUser(nUser);
+
+                etUsername.setText("");
+                etPassword.setText("");
 
 
                 NavHostFragment.findNavController(SecondFragment.this)
