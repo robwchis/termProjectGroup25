@@ -32,5 +32,13 @@
         android:id="@+id/thirdFragment"
         android:name="com.jetbrains.handson.mpp.termproject25.ThirdFragment"
         android:label="fragment_third"
-        tools:layout="@layout/fragment_third" />
+        tools:layout="@layout/fragment_third" >
+        <action
+            android:id="@+id/action_thirdFragment_to_finalFragment"
+            app:destination="@id/finalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/finalFragment"
+        android:name="com.jetbrains.handson.mpp.termproject25.FinalFragment"
+        android:label="FinalFragment" />
 </navigation>
