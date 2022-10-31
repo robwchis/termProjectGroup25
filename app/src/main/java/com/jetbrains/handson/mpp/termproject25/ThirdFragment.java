@@ -53,14 +53,15 @@ public class ThirdFragment extends Fragment {
                     while (cursor.moveToNext()) {
 
                         if ((cursor.getString(1).equals(etUsername.getText().toString()) && (cursor.getString(2).equals(etPassword.getText().toString())))) {
-                            //will be logged in
+
+                            NavHostFragment.findNavController(ThirdFragment.this)
+                                    .navigate(R.id.action_thirdFragment_to_finalFragment);
                             break;
                         }
                     }
+
                 }
 
-                NavHostFragment.findNavController(ThirdFragment.this)
-                        .navigate(R.id.action_thirdFragment_to_finalFragment);
 
             }
         });
