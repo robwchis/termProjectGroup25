@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,7 +19,6 @@ public class ThirdFragment extends Fragment {
 
     //XML stuff again
     EditText etUsername, etPassword;
-    userDBHandler userDB = new userDBHandler(this.getContext());
 
     private FragmentThirdBinding binding;
 
@@ -36,25 +36,31 @@ public class ThirdFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        etUsername = view.findViewById(R.id.txt_userName_login);
+        etPassword = view.findViewById(R.id.txt_password_login);
+
         binding.btnConfirmLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                etUsername = view.findViewById(R.id.txt_userName);
-                etPassword = view.findViewById(R.id.txt_password);
+
+                userDBHandler userDB = new userDBHandler(ThirdFragment.this.getContext());
 
                 Cursor cursor = userDB.getData();
+                if (cursor.getCount() == 0) {
+                    Toast.makeText(ThirdFragment.this.getContext(), "Nothing to show", Toast.LENGTH_SHORT).show();
+                } else {
+                    while (cursor.moveToNext()) {
 
-                while(cursor.moveToNext()){
-                    if ( (cursor.getString(1).equals(etUsername.getText().toString()) && (cursor.getString(2).equals(etPassword.getText().toString()))) ){
-                        //will be logged in
-                        break;
+                        if ((cursor.getString(1).equals(etUsername.getText().toString()) && (cursor.getString(2).equals(etPassword.getText().toString())))) {
+                            //will be logged in
+                            break;
+                        }
                     }
                 }
 
                 NavHostFragment.findNavController(ThirdFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
-
+                        .navigate(R.id.action_thirdFragment_to_finalFragment);
 
             }
         });

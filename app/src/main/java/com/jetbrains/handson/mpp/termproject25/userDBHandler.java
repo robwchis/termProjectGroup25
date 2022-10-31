@@ -9,22 +9,21 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class userDBHandler extends SQLiteOpenHelper {
     //Database Variables
     private static final String TABLE_NAME = "users";
-    private static final String COLUMN_ID = "id";
     private static final String COLUMN_USERNAME = "username";
     private static final String COLUMN_PASSWORD = "password";
     private static final String COLUMN_ADMIN = "admin";
     private static final String DATABASE_NAME = "users.db";
     private static final int DATABASE_VERSION = 1;
 
+
     public userDBHandler(Context context){super(context, DATABASE_NAME, null, DATABASE_VERSION);}
 
     @Override
     public void onCreate(SQLiteDatabase userDB) {
+
         String createTableCommand = "CREATE TABLE " + TABLE_NAME
-                + "(" + COLUMN_ID + "INTEGER PRIMARY KEY, "
-                + COLUMN_USERNAME +" TEXT, "
-                + COLUMN_PASSWORD + " TEXT, "
-                + COLUMN_ADMIN + "BOOLEAN " + ")";
+                + "(" + COLUMN_USERNAME +" TEXT, "
+                + COLUMN_PASSWORD + " TEXT)";
 
         userDB.execSQL(createTableCommand);
 
@@ -51,7 +50,6 @@ public class userDBHandler extends SQLiteOpenHelper {
         //Sets all the values, including the admin value, which is false by defalse* :) (*Default)
         values.put(COLUMN_USERNAME, user.getUsername());
         values.put(COLUMN_PASSWORD, user.getPassword());
-        values.put(COLUMN_ADMIN, false);
 
         db.insert(TABLE_NAME, null, values);
         db.close();

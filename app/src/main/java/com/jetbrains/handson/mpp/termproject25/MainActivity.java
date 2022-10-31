@@ -1,6 +1,8 @@
 package com.jetbrains.handson.mpp.termproject25;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -73,4 +75,6 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+
 }
