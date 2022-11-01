@@ -44,6 +44,16 @@ public class ThirdFragment extends Fragment {
             public void onClick(View view) {
 
 
+                if (etUsername.getText().toString().equals("admin") && etPassword.getText().toString().equals("admin123")) {
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("beepboop",etUsername.getText().toString()); // Put anything what you want
+                    getParentFragmentManager().setFragmentResult("beepboop",bundle);
+
+                    NavHostFragment.findNavController(ThirdFragment.this)
+                            .navigate(R.id.action_thirdFragment_to_adminFragment);
+                }
+
                 userDBHandler userDB = new userDBHandler(ThirdFragment.this.getContext());
 
                 Cursor cursor = userDB.getData();

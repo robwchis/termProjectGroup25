@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,6 +21,7 @@ public class SecondFragment extends Fragment {
     private FragmentSecondBinding binding;
 
     EditText etUsername, etPassword;
+    Switch switchInst;
 
     @Override
     public View onCreateView(
@@ -36,7 +38,7 @@ public class SecondFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-
+        switchInst = view.findViewById(R.id.switchInst);
         etUsername = view.findViewById(R.id.txt_userName);
         etPassword = view.findViewById(R.id.txt_password);
 
@@ -44,16 +46,31 @@ public class SecondFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                if (true) {
 
-                userDBHandler userDB = new userDBHandler(SecondFragment.this.getContext());
+                    userDBHandler userDB = new userDBHandler(SecondFragment.this.getContext());
 
-                String username = etUsername.getText().toString();
-                String password = etPassword.getText().toString();
-                User nUser = new User(username, password, 0);
-                userDB.addUser(nUser);
+                    String username = etUsername.getText().toString();
+                    String password = etPassword.getText().toString();
+                    User nUser = new User(username, password, 0);
+                    userDB.addUser(nUser);
 
-                NavHostFragment.findNavController(SecondFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
+                    NavHostFragment.findNavController(SecondFragment.this)
+                            .navigate(R.id.action_SecondFragment_to_FirstFragment);
+
+                } else {
+                    userDBHandler userDB = new userDBHandler(SecondFragment.this.getContext());
+
+                    String username = etUsername.getText().toString();
+                    String password = etPassword.getText().toString();
+                    User nUser = new User(username, password, 0);
+                    userDB.addUser(nUser);
+
+                    NavHostFragment.findNavController(SecondFragment.this)
+                            .navigate(R.id.action_SecondFragment_to_FirstFragment);
+                }
+
+
             }
         });
     }
