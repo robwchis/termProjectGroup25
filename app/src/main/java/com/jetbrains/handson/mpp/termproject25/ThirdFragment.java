@@ -69,7 +69,7 @@ public class ThirdFragment extends Fragment {
 //                        System.out.println(cursor.getString(1) + " =? " + etPassword.getText().toString());
 
 
-                        if ((cursor.getString(0).equals(etUsername.getText().toString()) && (cursor.getString(1).equals(etPassword.getText().toString())))) {
+                        if ((cursor.getString(1).equals(etUsername.getText().toString()) && (cursor.getString(2).equals(etPassword.getText().toString())))) {
 
                             Bundle bundle = new Bundle();
                             bundle.putString("beepboop", etUsername.getText().toString()); // Put anything what you want

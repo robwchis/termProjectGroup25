@@ -12,7 +12,6 @@ public class instructorDBHandler extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "instructors";
     private static final String COLUMN_USERNAME = "username";
     private static final String COLUMN_PASSWORD = "password";
-    private static final String COLUMN_ADMIN = "admin";
     private static final String DATABASE_NAME = "instructors.db";
     private static final int DATABASE_VERSION = 1;
 
@@ -64,4 +63,3 @@ public class instructorDBHandler extends SQLiteOpenHelper {
         db.close();
     }
 }
-

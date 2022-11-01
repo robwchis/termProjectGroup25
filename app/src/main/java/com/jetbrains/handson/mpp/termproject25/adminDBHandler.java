@@ -17,12 +17,12 @@ public class adminDBHandler extends SQLiteOpenHelper {
 
     public adminDBHandler(Context context){super(context, DATABASE_NAME, null, DATABASE_VERSION);}
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+    public void onCreate(SQLiteDatabase adminDB) {
         String createTableCommand = "CREATE TABLE " + TABLE_NAME
                 + "(" + COLUMN_COURSE_NAME +" TEXT, "
                 + COLUMN_COURSE_CODE + " TEXT)";
 
-        sqLiteDatabase.execSQL(createTableCommand);
+        adminDB.execSQL(createTableCommand);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class adminDBHandler extends SQLiteOpenHelper {
     }
 
     public Cursor getData(){
-        SQLiteDatabase db =this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME;
         return db.rawQuery(query, null);
     }
@@ -50,7 +50,7 @@ public class adminDBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void removeUser(course c){
+    public void removeCourse(course c){
         SQLiteDatabase db = this.getReadableDatabase();
         //Deletes user by their username
         db.delete(TABLE_NAME, "code=?", new String[]{c.getCode()});
