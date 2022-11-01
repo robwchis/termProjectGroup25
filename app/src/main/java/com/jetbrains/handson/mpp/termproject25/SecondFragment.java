@@ -46,7 +46,20 @@ public class SecondFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (switchInst.isChecked()) {
+                System.out.println(switchInst.isActivated());
+
+
+                boolean switchState = switchInst.isChecked();
+                if (switchState) {
+                    System.out.println("what");
+                } else {
+                    System.out.println("what2");
+                }
+
+
+                if (!switchState) {
+
+                    System.out.println("is a user");
 
                     userDBHandler userDB = new userDBHandler(SecondFragment.this.getContext());
 
@@ -59,6 +72,9 @@ public class SecondFragment extends Fragment {
                             .navigate(R.id.action_SecondFragment_to_FirstFragment);
 
                 } else {
+
+                    System.out.println("is a inst");
+
                     instructorDBHandler instDB = new instructorDBHandler(SecondFragment.this.getContext());
 
                     String username = etUsername.getText().toString();
