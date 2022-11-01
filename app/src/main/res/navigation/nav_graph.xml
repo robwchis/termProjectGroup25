@@ -36,9 +36,16 @@
         <action
             android:id="@+id/action_thirdFragment_to_finalFragment"
             app:destination="@id/finalFragment" />
+        <action
+            android:id="@+id/action_thirdFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
     </fragment>
     <fragment
         android:id="@+id/finalFragment"
         android:name="com.jetbrains.handson.mpp.termproject25.FinalFragment"
         android:label="FinalFragment" />
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="com.jetbrains.handson.mpp.termproject25.AdminFragment"
+        android:label="AdminFragment" />
 </navigation>
