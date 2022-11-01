@@ -9,8 +9,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.jetbrains.handson.mpp.termproject25.databinding.FragmentAdminBinding;
 import com.jetbrains.handson.mpp.termproject25.databinding.FragmentFinalBinding;
 import com.jetbrains.handson.mpp.termproject25.databinding.FragmentFirstBinding;
 
@@ -25,7 +27,6 @@ public class FinalFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-
         binding = FragmentFinalBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
@@ -33,30 +34,19 @@ public class FinalFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        Bundle bundle = this.getArguments();
-
-        if(bundle != null){
-            // handle your code here.
-            System.out.println("WORKED");
-        }
-
-
         roleText = view.findViewById(R.id.txt_displayRole);
         nameText = view.findViewById(R.id.txt_displayUsername);
 
-        userDBHandler userDB = new userDBHandler(FinalFragment.this.getContext());
 
-        Cursor cursor = userDB.getData();
+        getParentFragmentManager().setFragmentResultListener("beepboop", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                String data = result.getString("beepboop");
+                System.out.println(data);
+                nameText.setText("Username: "+data);
 
-        System.out.println(cursor.getCount());
-
-        while (cursor.moveToNext()) {
-            System.out.println("OVER HERE: "+cursor.getString(0));
-            nameText.setText(cursor.getString(0));
-            break;
-        }
-
+            }
+        });
 
     }
 

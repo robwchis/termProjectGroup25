@@ -50,6 +50,7 @@ public class ThirdFragment extends Fragment {
                 if (cursor.getCount() == 0) {
                     Toast.makeText(ThirdFragment.this.getContext(), "Nothing to show", Toast.LENGTH_SHORT).show();
                 } else {
+                    int seachKey;
                     while (cursor.moveToNext()) {
 
 //                        System.out.println(cursor.getString(0) + " =? " + etUsername.getText().toString());
@@ -59,14 +60,8 @@ public class ThirdFragment extends Fragment {
                         if ((cursor.getString(0).equals(etUsername.getText().toString()) && (cursor.getString(1).equals(etPassword.getText().toString())))) {
 
                             Bundle bundle = new Bundle();
-                            bundle.putString("key","abc"); // Put anything what you want
-
-                            FinalFragment fragment2 = new FinalFragment();
-                            fragment2.setArguments(bundle);
-
-                            getFragmentManager()
-                                    .beginTransaction()
-                                    .commit();
+                            bundle.putString("beepboop",etUsername.getText().toString()); // Put anything what you want
+                            getParentFragmentManager().setFragmentResult("beepboop",bundle);
 
                             NavHostFragment.findNavController(ThirdFragment.this)
                                     .navigate(R.id.action_thirdFragment_to_finalFragment);
