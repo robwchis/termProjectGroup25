@@ -126,8 +126,7 @@ public class AdminFragment extends Fragment {
                     }
                 }
 
-
-
+                cursor.close();
 
             }
 

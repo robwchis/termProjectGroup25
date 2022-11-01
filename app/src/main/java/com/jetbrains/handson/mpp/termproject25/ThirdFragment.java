@@ -115,7 +115,8 @@ public class ThirdFragment extends Fragment {
                     }
 
                 }
-
+                cursor.close();
+                cursor2.close();
 
             }
         });
