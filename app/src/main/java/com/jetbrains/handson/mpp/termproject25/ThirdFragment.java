@@ -55,8 +55,11 @@ public class ThirdFragment extends Fragment {
                 }
 
                 userDBHandler userDB = new userDBHandler(ThirdFragment.this.getContext());
+                instructorDBHandler instDB = new instructorDBHandler(ThirdFragment.this.getContext());
 
                 Cursor cursor = userDB.getData();
+                Cursor cursor2 = instDB.getData();
+
                 if (cursor.getCount() == 0) {
                     Toast.makeText(ThirdFragment.this.getContext(), "Nothing to show", Toast.LENGTH_SHORT).show();
                 } else {
@@ -66,23 +69,48 @@ public class ThirdFragment extends Fragment {
 //                        System.out.println(cursor.getString(1) + " =? " + etPassword.getText().toString());
 
 
-                        if ((cursor.getString(1).equals(etUsername.getText().toString()) && (cursor.getString(2).equals(etPassword.getText().toString())))) {
+                        if ((cursor.getString(0).equals(etUsername.getText().toString()) && (cursor.getString(1).equals(etPassword.getText().toString())))) {
 
                             Bundle bundle = new Bundle();
-                            bundle.putString("key","abc"); // Put anything what you want
+                            bundle.putString("beepboop", etUsername.getText().toString()); // Put anything what you want
+                            bundle.putBoolean("beepboop2",false);
 
-                            FinalFragment fragment2 = new FinalFragment();
-                            fragment2.setArguments(bundle);
+                            getParentFragmentManager().setFragmentResult("beepboop",bundle);
 
-                            getFragmentManager()
-                                    .beginTransaction()
-                                    .commit();
 
                             NavHostFragment.findNavController(ThirdFragment.this)
                                     .navigate(R.id.action_thirdFragment_to_finalFragment);
                             break;
                         } else {
                             System.out.println("nope.");
+                        }
+                    }
+
+                }
+
+                if (cursor2.getCount() == 0) {
+                    Toast.makeText(ThirdFragment.this.getContext(), "Nothing to show2", Toast.LENGTH_SHORT).show();
+                } else {
+                    while (cursor2.moveToNext()) {
+
+//                        System.out.println(cursor.getString(0) + " =? " + etUsername.getText().toString());
+//                        System.out.println(cursor.getString(1) + " =? " + etPassword.getText().toString());
+
+
+                        if ((cursor2.getString(0).equals(etUsername.getText().toString()) && (cursor2.getString(1).equals(etPassword.getText().toString())))) {
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("beepboop", etUsername.getText().toString()); // Put anything what you want
+                            bundle.putBoolean("beepboop2",true);
+
+                            getParentFragmentManager().setFragmentResult("beepboop",bundle);
+
+
+                            NavHostFragment.findNavController(ThirdFragment.this)
+                                    .navigate(R.id.action_thirdFragment_to_finalFragment);
+                            break;
+                        } else {
+                            System.out.println("nope2.");
                         }
                     }
 

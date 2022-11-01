@@ -46,7 +46,7 @@ public class SecondFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (false) {
+                if (switchInst.isChecked()) {
 
                     userDBHandler userDB = new userDBHandler(SecondFragment.this.getContext());
 

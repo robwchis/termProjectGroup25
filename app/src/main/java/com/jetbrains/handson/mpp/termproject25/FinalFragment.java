@@ -42,8 +42,16 @@ public class FinalFragment extends Fragment {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 String data = result.getString("beepboop");
+                Boolean data2 = result.getBoolean("beepboop2");
                 System.out.println(data);
+                System.out.println(data2);
                 nameText.setText("Username: "+data);
+                if (!data2) {
+                    roleText.setText("Role: User");
+                } else {
+                    roleText.setText("Role: Instructor");
+                }
+
 
             }
         });
