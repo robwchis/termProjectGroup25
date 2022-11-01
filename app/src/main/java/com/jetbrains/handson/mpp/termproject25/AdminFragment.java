@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ public class AdminFragment extends Fragment {
 
     TextView roleText, nameText, confText, addName, addCode;
     LinearLayout bar2, bar3;
+    EditText searchBar;
 
 
     @Override
@@ -44,6 +46,7 @@ public class AdminFragment extends Fragment {
         confText = view.findViewById(R.id.newText);
         addName = view.findViewById(R.id.addName);
         addCode = view.findViewById(R.id.addCode);
+        searchBar = view.findViewById(R.id.searchBar);
 
 
         getParentFragmentManager().setFragmentResultListener("beepboop", this, new FragmentResultListener() {
@@ -59,16 +62,16 @@ public class AdminFragment extends Fragment {
 
         adminDBHandler db = new adminDBHandler(AdminFragment.this.getContext());
 
-
         binding.searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Cursor cursor = db.getData();
 
-                String fCode = nameText.getText().toString();
+                String fCode = searchBar.getText().toString();
 
                 while(cursor.moveToNext()){
+                    System.out.println(fCode + " =? " + cursor.getString(1));
                     if(fCode.equals(cursor.getString(1))){
                         bar2.setVisibility(View.VISIBLE);
 
@@ -82,8 +85,8 @@ public class AdminFragment extends Fragment {
                                     @Override
                                     public void onClick(View view) {
 
-                                        course c = new course(cursor.getString(1).toString(), cursor.getString(2).toString());
-                                        course nC = new course(confText.getText().toString(), cursor.getString(2).toString());
+                                        course c = new course(cursor.getString(0).toString(), cursor.getString(1).toString());
+                                        course nC = new course(confText.getText().toString(), cursor.getString(1).toString());
 
                                         db.addCourse(nC);
                                         db.removeCourse(c);
@@ -106,8 +109,8 @@ public class AdminFragment extends Fragment {
                                     @Override
                                     public void onClick(View view) {
 
-                                        course c = new course(cursor.getString(1).toString(), cursor.getString(2).toString());
-                                        course nC = new course(cursor.getString(1).toString(), confText.getText().toString());
+                                        course c = new course(cursor.getString(0).toString(), cursor.getString(1).toString());
+                                        course nC = new course(cursor.getString(0).toString(), confText.getText().toString());
 
                                         db.addCourse(nC);
                                         db.removeCourse(c);
