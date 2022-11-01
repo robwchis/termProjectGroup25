@@ -21,9 +21,10 @@ public class AdminFragment extends Fragment {
 
     private FragmentAdminBinding binding;
 
-    TextView roleText, nameText, confText, addName, addCode;
+    TextView nameCode, nameText, confText, addName, addCode;
     LinearLayout bar2, bar3;
     EditText searchBar;
+
 
 
     @Override
@@ -47,6 +48,7 @@ public class AdminFragment extends Fragment {
         addName = view.findViewById(R.id.addName);
         addCode = view.findViewById(R.id.addCode);
         searchBar = view.findViewById(R.id.searchBar);
+        nameCode = view.findViewById(R.id.nameCode);
 
 
         getParentFragmentManager().setFragmentResultListener("beepboop", this, new FragmentResultListener() {
@@ -72,8 +74,13 @@ public class AdminFragment extends Fragment {
 
                 while(cursor.moveToNext()){
                     System.out.println(fCode + " =? " + cursor.getString(1));
+
+                    String currName = cursor.getString(0);
+                    String currCode = cursor.getString(1);
+
                     if(fCode.equals(cursor.getString(1))){
                         bar2.setVisibility(View.VISIBLE);
+                        nameCode.setText(currName + " | " + currCode);
 
                         binding.editName.setOnClickListener(new View.OnClickListener(){
                             @Override
@@ -88,8 +95,11 @@ public class AdminFragment extends Fragment {
                                         course c = new course(cursor.getString(0).toString(), cursor.getString(1).toString());
                                         course nC = new course(confText.getText().toString(), cursor.getString(1).toString());
 
-                                        db.addCourse(nC);
                                         db.removeCourse(c);
+                                        db.addCourse(nC);
+
+                                        bar2.setVisibility(View.INVISIBLE);
+                                        bar3.setVisibility(View.INVISIBLE);
 
                                     }
                                 });
@@ -112,8 +122,11 @@ public class AdminFragment extends Fragment {
                                         course c = new course(cursor.getString(0).toString(), cursor.getString(1).toString());
                                         course nC = new course(cursor.getString(0).toString(), confText.getText().toString());
 
-                                        db.addCourse(nC);
                                         db.removeCourse(c);
+                                        db.addCourse(nC);
+
+                                        bar2.setVisibility(View.INVISIBLE);
+                                        bar3.setVisibility(View.INVISIBLE);
 
                                     }
                                 });
@@ -123,13 +136,24 @@ public class AdminFragment extends Fragment {
                             }
                         });
 
+                        binding.delete.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
-                    } else {
-                        Toast.makeText(AdminFragment.this.getContext(), "There is not a class with that course code", Toast.LENGTH_LONG).show();
+                                course nC = new course(currName, currCode);
+                                db.removeCourse(nC);
+                                bar2.setVisibility(View.INVISIBLE);
+                                bar3.setVisibility(View.INVISIBLE);
+                                searchBar.setText("Code");
+                            }
+                        });
+
+                        break;
+
                     }
                 }
 
-                cursor.close();
+
 
             }
 
@@ -146,6 +170,8 @@ public class AdminFragment extends Fragment {
                 db.addCourse(nC);
             }
         });
+
+
     }
 
 
