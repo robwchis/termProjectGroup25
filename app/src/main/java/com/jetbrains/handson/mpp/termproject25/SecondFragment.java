@@ -46,7 +46,7 @@ public class SecondFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (true) {
+                if (false) {
 
                     userDBHandler userDB = new userDBHandler(SecondFragment.this.getContext());
 
@@ -59,12 +59,12 @@ public class SecondFragment extends Fragment {
                             .navigate(R.id.action_SecondFragment_to_FirstFragment);
 
                 } else {
-                    userDBHandler userDB = new userDBHandler(SecondFragment.this.getContext());
+                    instructorDBHandler instDB = new instructorDBHandler(SecondFragment.this.getContext());
 
                     String username = etUsername.getText().toString();
                     String password = etPassword.getText().toString();
                     User nUser = new User(username, password, 0);
-                    userDB.addUser(nUser);
+                    instDB.addUser(nUser);
 
                     NavHostFragment.findNavController(SecondFragment.this)
                             .navigate(R.id.action_SecondFragment_to_FirstFragment);
