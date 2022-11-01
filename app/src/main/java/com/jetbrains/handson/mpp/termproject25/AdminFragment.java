@@ -34,6 +34,9 @@ public class AdminFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        nameText = view.findViewById(R.id.txt_displayUsername);
+
+
         getParentFragmentManager().setFragmentResultListener("beepboop", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
