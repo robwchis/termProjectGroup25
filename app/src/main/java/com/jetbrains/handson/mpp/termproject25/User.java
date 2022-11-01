@@ -5,12 +5,10 @@ public class User {
     private int id;
     private String username;
     private String password;
-    private int admin;
 
     public User(String u, String p, int adm){
         username = u;
         password = p;
-        admin = adm;//If is 1, user is an admin
     }
 
     public void setId(int nID){
@@ -35,14 +33,6 @@ public class User {
 
     public String getPassword(){
         return password;
-    }
-
-    public void setAdmin(int admStat){
-        admin = admStat;
-    }
-
-    public int getAdmin(){
-        return admin;
     }
 
 }
