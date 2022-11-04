@@ -23,7 +23,7 @@ public class AdminFragment extends Fragment {
 
     TextView nameCode, nameText, confText, addName, addCode;
     LinearLayout bar2, bar3;
-    EditText searchBar;
+    EditText searchBar, delBar;
 
 
 
@@ -49,6 +49,7 @@ public class AdminFragment extends Fragment {
         addCode = view.findViewById(R.id.addCode);
         searchBar = view.findViewById(R.id.searchBar);
         nameCode = view.findViewById(R.id.nameCode);
+        delBar = view.findViewById(R.id.delBar);
 
 
         getParentFragmentManager().setFragmentResultListener("beepboop", this, new FragmentResultListener() {
@@ -170,6 +171,49 @@ public class AdminFragment extends Fragment {
                 db.addCourse(nC);
             }
         });
+
+        binding.delButton.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                userDBHandler uDB = new userDBHandler(AdminFragment.this.getContext());
+                instructorDBHandler iDB = new instructorDBHandler(AdminFragment.this.getContext());
+                Cursor cursor = uDB.getData();
+                Cursor icursor = iDB.getData();
+
+                String bar = delBar.getText().toString();
+
+                while(cursor.moveToNext()){
+                    if(cursor.getString(0).equals(bar)){
+
+                        User dC = new User(cursor.getString(0), cursor.getString(1), 0 );
+                        uDB.removeUser(dC);
+
+                        delBar.setText("Username");
+
+                        Toast toast = Toast.makeText(AdminFragment.this.getContext(), "A user has been removed", Toast.LENGTH_LONG);
+
+                        break;
+                    }
+                }
+                while(icursor.moveToNext()){
+                    if(icursor.getString(0).equals(bar)){
+
+                        User dC = new User(icursor.getString(0), icursor.getString(1), 0 );
+                        iDB.removeUser(dC);
+
+                        delBar.setText("Username");
+
+                        Toast toast = Toast.makeText(AdminFragment.this.getContext(), "A user has been removed", Toast.LENGTH_LONG);
+
+                        break;
+                    }
+                }
+
+                Toast toast = Toast.makeText(AdminFragment.this.getContext(), "No user has been removed", Toast.LENGTH_LONG);
+
+            }
+        }));
 
 
     }
