@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_thirdFragment_to_adminFragment"
             app:destination="@id/adminFragment" />
+        <action
+            android:id="@+id/action_thirdFragment_to_instructorFragment"
+            app:destination="@id/instructorFragment" />
     </fragment>
     <fragment
         android:id="@+id/finalFragment"
@@ -48,4 +51,23 @@
         android:id="@+id/adminFragment"
         android:name="com.jetbrains.handson.mpp.termproject25.AdminFragment"
         android:label="AdminFragment" />
+    <fragment
+        android:id="@+id/instructorFragment"
+        android:name="com.jetbrains.handson.mpp.termproject25.InstructorFragment"
+        android:label="InstructorFragment" >
+        <action
+            android:id="@+id/action_instructorFragment_self"
+            app:destination="@id/instructorFragment" />
+        <action
+            android:id="@+id/action_instructorFragment_to_instructorFragment2"
+            app:destination="@id/instructorFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/instructorFragment2"
+        android:name="com.jetbrains.handson.mpp.termproject25.InstructorFragment2"
+        android:label="InstructorFragment2" >
+        <action
+            android:id="@+id/action_instructorFragment2_self"
+            app:destination="@id/instructorFragment2" />
+    </fragment>
 </navigation>

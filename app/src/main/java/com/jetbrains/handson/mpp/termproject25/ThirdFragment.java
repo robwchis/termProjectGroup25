@@ -112,7 +112,7 @@ public class ThirdFragment extends Fragment {
 
 
                             NavHostFragment.findNavController(ThirdFragment.this)
-                                    .navigate(R.id.action_thirdFragment_to_finalFragment);
+                                    .navigate(R.id.action_thirdFragment_to_instructorFragment);
                             break;
                         } else {
                             System.out.println("nope2.");
