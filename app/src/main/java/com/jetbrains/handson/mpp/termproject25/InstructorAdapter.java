@@ -15,13 +15,18 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.in
         void onButtonClick(int pos);
     }
 
+    interface OnButton2ClickListener {
+        void onButton2Click(int pos, String d, String h, String cap, String disc);
+    }
+
     String[] names,codes, days, hours, capacites, descriptions;
     Context context;
     OnButtonClickListener listener;
+    OnButton2ClickListener listener2;
 
 
 
-    public InstructorAdapter(Context ct, String[] n, String[] c, String[] d, String[] h, String[] cap, String[] desc, OnButtonClickListener l) {
+    public InstructorAdapter(Context ct, String[] n, String[] c, String[] d, String[] h, String[] cap, String[] desc, OnButtonClickListener l, OnButton2ClickListener l2) {
         this.context = ct;
         this.names = n;
         this.codes = c;
@@ -30,6 +35,7 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.in
         this.capacites = cap;
         this.descriptions = desc;
         this.listener = l;
+        this.listener2 = l2;
     }
 
     @NonNull
@@ -59,7 +65,7 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.in
     public class instructorViewHolder extends RecyclerView.ViewHolder {
 
         TextView nameView, codeView, posView, dayView, hourView, capView, descView;
-        Button button;
+        Button button, button2;
 
         public instructorViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,17 +77,26 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.in
             capView = itemView.findViewById(R.id.txtCap);
             descView = itemView.findViewById(R.id.txtDesc);
             button = itemView.findViewById(R.id.remove_btn);
+            button2 = itemView.findViewById(R.id.buttonUpdate);
 
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
+                public void onClick(View view) { listener.onButtonClick(Integer.parseInt((String) posView.getText())); }
+            });
+
+            button2.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View view) {
-//                    System.out.println("test: " + posView.getText());
+                    int posPut = Integer.parseInt((String) posView.getText());
+                    String dPut = dayView.getText().toString();
+                    String hPut = hourView.getText().toString();
+                    String capPut = capView.getText().toString();
+                    String descPut = descView.getText().toString();
 
-                    listener.onButtonClick(Integer.parseInt((String) posView.getText()));
-
-
+                    listener2.onButton2Click(posPut, dPut, hPut, capPut, descPut);
                 }
             });
+
         }
 
 

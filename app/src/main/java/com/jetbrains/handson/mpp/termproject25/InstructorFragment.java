@@ -65,10 +65,8 @@ public class InstructorFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView2);
 
-        // DOUGLASS -> right here create two String arrays,
-        // one with all names that are assigned to the current instructor,
-        // and one with all codes that are assigned to the current instructor.
-        // i.e get a list of all courses that are assigned to the instructor and get the names and codes.
+        // DOUGLASS -> right here create 6 String arrays,
+        // i.e get a list of all courses that are assigned to the instructor and get the data for each one in an array.
 
 
         // DOUGLASS -> Remove this when the bit above is implemented
@@ -91,23 +89,29 @@ public class InstructorFragment extends Fragment {
                 System.out.println("pos: "+pos);
 
                 // DOUGLASS -> right here set the instructor for the course in position 'pos' to unassigned.
+                // then get a list of all courses that are assigned to the instructor and get the data for each one in an array (again).
 
                 // here
 
-                // DOUGLASS -> also right here is where we refresh the app, but for some reason the name of the instructor isn't saved...
 
-                capacities = new String[]{"cap1h","cap2h","cap3h"};
+//                capacities = new String[]{"cap1h","cap2h","cap3h"};
                 updateStuff();
-//                String newText = nameText.getText().toString().substring(9);
-//
-//                Bundle bundle = new Bundle();
-//                bundle.putString("beepboop", newText+"gamertest"); // Put anything what you want
-//                bundle.putBoolean("beepboop2",true);
-//
-//                getParentFragmentManager().setFragmentResult("beepboop",bundle);
-//
-//                NavHostFragment.findNavController(InstructorFragment.this)
-//                        .navigate(R.id.action_instructorFragment_self);
+
+
+            }
+        }, new InstructorAdapter.OnButton2ClickListener() {
+            @Override
+            public void onButton2Click(int pos, String d, String h, String cap, String desc) {
+                System.out.println("pos: "+pos);
+
+                // DOUGLASS -> right here set every value for the item in position "pos" to the values put here in here
+                // then get a list of all courses that are assigned to the instructor and get the data for each one in an array (again).
+
+                // here
+
+
+//                capacities = new String[]{"cap1h","cap2h","cap3h"};
+                updateStuff();
 
 
             }
@@ -140,7 +144,46 @@ public class InstructorFragment extends Fragment {
     }
 
     public void updateStuff() {
-        adapter.notifyDataSetChanged();
+
+        System.out.println("GETS TO THIS POINT");
+
+        adapter = new InstructorAdapter(this.getContext(), names, codes, days, hours, capacities, descs, new InstructorAdapter.OnButtonClickListener() {
+            @Override
+            public void onButtonClick(int pos) {
+                System.out.println("pos: "+pos);
+
+                // DOUGLASS -> right here set the instructor for the course in position 'pos' to unassigned.
+                // then get a list of all courses that are assigned to the instructor and get the data for each one in an array (again).
+
+                // here
+
+
+//                capacities = new String[]{"cap1h","cap2h","cap3h"};
+                updateStuff();
+
+
+            }
+        }, new InstructorAdapter.OnButton2ClickListener() {
+            @Override
+            public void onButton2Click(int pos, String d, String h, String cap, String desc) {
+                System.out.println("pos: "+pos);
+
+                // DOUGLASS -> right here set every value for the item in position "pos" to the values put here in here
+                // then get a list of all courses that are assigned to the instructor and get the data for each one in an array (again).
+
+                // here
+
+
+//                capacities = new String[]{"cap1h","cap2h","cap3h"};
+                updateStuff();
+
+
+            }
+        });
+
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
     }
 
 
