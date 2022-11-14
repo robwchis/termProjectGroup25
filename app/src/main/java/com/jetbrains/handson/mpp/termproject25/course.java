@@ -7,16 +7,18 @@ public class course {
     private String[] courseTimes;
     private String courseDesc;
     private int studentCapacity;
+    private String instructor;
 
     public course(String n, String c){
         name = n;
         code = c;
-//        courseDays = new String[2];
+        courseDays = new String[2];
         courseDays[0] = "";
         courseDays[1] = "";
-//        courseTimes = new String[2];
+        courseTimes = new String[2];
         courseTimes[0] = "";
         courseTimes[1] = "";
+        instructor = "";
     }
 
     public void setName(String n){
@@ -60,5 +62,9 @@ public class course {
     public String getCourseDesc(){
         return courseDesc;
     }
+
+    public void setInstructor(String inst){instructor = inst;}
+
+    public String getInstructor(){return instructor;}
 
 }

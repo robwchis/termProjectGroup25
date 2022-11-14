@@ -1,6 +1,7 @@
 package com.jetbrains.handson.mpp.termproject25;
 
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,6 +69,7 @@ public class InstructorFragment extends Fragment {
         // one with all names that are assigned to the current instructor,
         // and one with all codes that are assigned to the current instructor.
         // i.e get a list of all courses that are assigned to the instructor and get the names and codes.
+
 
         // DOUGLASS -> Remove this when the bit above is implemented
         // v just for testing v //
