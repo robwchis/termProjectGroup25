@@ -23,8 +23,9 @@ public class InstructorFragment extends Fragment {
 
     private FragmentInstructorBinding binding;
 
-    String[] names, codes;
+    String[] names, codes, days, hours, capacities, descs;
     RecyclerView recyclerView;
+    InstructorAdapter adapter;
     Button pickCourse;
 
     @Override
@@ -72,13 +73,17 @@ public class InstructorFragment extends Fragment {
         // v just for testing v //
         names = new String[]{"name1", "name2", "name3"};
         codes = new String[]{"code1","code2","code3"};
+        days = new String[]{"days1","days2","days3"};
+        hours = new String[]{"hours1","hours2","hours3"};
+        capacities = new String[]{"cap1","cap2","cap3"};
+        descs = new String[]{"desc1","desc2","desc3"};
         // ^ just for testing ^ //
 
 //        InstructorFragment storage = this;
 
 
 
-        InstructorAdapter adapter = new InstructorAdapter(this.getContext(), names, codes, new InstructorAdapter.OnButtonClickListener() {
+        adapter = new InstructorAdapter(this.getContext(), names, codes, days, hours, capacities, descs, new InstructorAdapter.OnButtonClickListener() {
             @Override
             public void onButtonClick(int pos) {
                 System.out.println("pos: "+pos);
@@ -88,21 +93,26 @@ public class InstructorFragment extends Fragment {
                 // here
 
                 // DOUGLASS -> also right here is where we refresh the app, but for some reason the name of the instructor isn't saved...
-                String newText = nameText.getText().toString().substring(9);
 
-                Bundle bundle = new Bundle();
-                bundle.putString("beepboop", newText); // Put anything what you want
-                bundle.putBoolean("beepboop2",true);
+                capacities = new String[]{"cap1h","cap2h","cap3h"};
+                updateStuff();
+//                String newText = nameText.getText().toString().substring(9);
+//
+//                Bundle bundle = new Bundle();
+//                bundle.putString("beepboop", newText+"gamertest"); // Put anything what you want
+//                bundle.putBoolean("beepboop2",true);
+//
+//                getParentFragmentManager().setFragmentResult("beepboop",bundle);
+//
+//                NavHostFragment.findNavController(InstructorFragment.this)
+//                        .navigate(R.id.action_instructorFragment_self);
 
-                getParentFragmentManager().setFragmentResult("beepboop",bundle);
-
-                NavHostFragment.findNavController(InstructorFragment.this)
-                        .navigate(R.id.action_instructorFragment_self);
-
-                nameText.setText(newText);
 
             }
         });
+
+
+
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
@@ -126,6 +136,11 @@ public class InstructorFragment extends Fragment {
 
 
     }
+
+    public void updateStuff() {
+        adapter.notifyDataSetChanged();
+    }
+
 
     @Override
     public void onDestroyView() {

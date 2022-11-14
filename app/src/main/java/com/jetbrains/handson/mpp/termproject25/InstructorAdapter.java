@@ -15,16 +15,20 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.in
         void onButtonClick(int pos);
     }
 
-    String[] names,codes;
+    String[] names,codes, days, hours, capacites, descriptions;
     Context context;
     OnButtonClickListener listener;
 
 
 
-    public InstructorAdapter(Context ct, String[] n, String[] c, OnButtonClickListener l) {
+    public InstructorAdapter(Context ct, String[] n, String[] c, String[] d, String[] h, String[] cap, String[] desc, OnButtonClickListener l) {
         this.context = ct;
         this.names = n;
         this.codes = c;
+        this.days = d;
+        this.hours = h;
+        this.capacites = cap;
+        this.descriptions = desc;
         this.listener = l;
     }
 
@@ -40,6 +44,10 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.in
     public void onBindViewHolder(@NonNull instructorViewHolder holder, int position) {
         holder.nameView.setText(names[position]);
         holder.codeView.setText(codes[position]);
+        holder.dayView.setText(days[position]);
+        holder.hourView.setText(hours[position]);
+        holder.capView.setText(capacites[position]);
+        holder.descView.setText(descriptions[position]);
         holder.posView.setText(String.valueOf(position));
     }
 
@@ -50,7 +58,7 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.in
 
     public class instructorViewHolder extends RecyclerView.ViewHolder {
 
-        TextView nameView, codeView, posView;
+        TextView nameView, codeView, posView, dayView, hourView, capView, descView;
         Button button;
 
         public instructorViewHolder(@NonNull View itemView) {
@@ -58,6 +66,10 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.in
             nameView = itemView.findViewById(R.id.name);
             codeView = itemView.findViewById(R.id.code);
             posView = itemView.findViewById(R.id.pos);
+            dayView = itemView.findViewById(R.id.txtDays);
+            hourView = itemView.findViewById(R.id.txtHours);
+            capView = itemView.findViewById(R.id.txtCap);
+            descView = itemView.findViewById(R.id.txtDesc);
             button = itemView.findViewById(R.id.remove_btn);
 
             button.setOnClickListener(new View.OnClickListener() {
@@ -71,5 +83,7 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.in
                 }
             });
         }
+
+
     }
 }

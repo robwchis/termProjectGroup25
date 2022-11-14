@@ -77,7 +77,7 @@ public class InstructorFragment2 extends Fragment {
 
 
 
-        InstructorAdapter adapter = new InstructorAdapter(this.getContext(), names, codes, new InstructorAdapter.OnButtonClickListener() {
+        InstructorAdapter2 adapter = new InstructorAdapter2(this.getContext(), names, codes, new InstructorAdapter2.OnButtonClickListener() {
             @Override
             public void onButtonClick(int pos) {
                 System.out.println("pos: "+pos);
