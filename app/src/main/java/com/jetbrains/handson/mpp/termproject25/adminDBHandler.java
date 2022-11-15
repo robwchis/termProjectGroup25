@@ -17,7 +17,8 @@ public class adminDBHandler extends SQLiteOpenHelper {
     private static final String COLUMN_COURSE_TIMETWO = "time2";
     private static final String COLUMN_COURSE_INSTRUCTOR = "instructor";
     private static final String COLUMN_COURSE_DESCRIPTION = "Description";
-    private static final String DATABASE_NAME = "courseList.db";
+    private static final String COLUMN_COURSE_CAP = "Capacity";
+    private static final String DATABASE_NAME = "newCourseList.db";
     private static final int DATABASE_VERSION = 1;
 
 
@@ -32,7 +33,8 @@ public class adminDBHandler extends SQLiteOpenHelper {
                 + COLUMN_COURSE_TIMEONE + " TEXT,"
                 + COLUMN_COURSE_TIMETWO + " TEXT,"
                 + COLUMN_COURSE_INSTRUCTOR + " TEXT,"
-                + COLUMN_COURSE_DESCRIPTION + " TEXT)";
+                + COLUMN_COURSE_DESCRIPTION + " TEXT,"
+                + COLUMN_COURSE_CAP + " INT)";
 
         adminDB.execSQL(createTableCommand);
     }
@@ -62,6 +64,7 @@ public class adminDBHandler extends SQLiteOpenHelper {
         values.put(COLUMN_COURSE_TIMEONE, "");
         values.put(COLUMN_COURSE_TIMETWO, "");
         values.put(COLUMN_COURSE_DESCRIPTION, "");
+        values.put(COLUMN_COURSE_CAP, 0);
 
         db.insert(TABLE_NAME, null, values);
         db.close();

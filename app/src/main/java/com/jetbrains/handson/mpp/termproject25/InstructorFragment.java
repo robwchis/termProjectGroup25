@@ -24,7 +24,7 @@ public class InstructorFragment extends Fragment {
 
     private FragmentInstructorBinding binding;
 
-    String[] names, codes, days, hours, capacities, descs;
+    String[] names, codes, days, hours, capacities, descs, tnames, tcodes, tdays, thours, tcapacities, tdescs;
     RecyclerView recyclerView;
     InstructorAdapter adapter;
     Button pickCourse;
@@ -50,7 +50,7 @@ public class InstructorFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         TextView nameText = view.findViewById(R.id.txt_displayUsernameInst);
-
+        adminDBHandler db = new adminDBHandler(InstructorFragment.this.getContext());
         getParentFragmentManager().setFragmentResultListener("beepboop", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
@@ -65,25 +65,51 @@ public class InstructorFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView2);
 
-        // DOUGLASS -> right here create 6 String arrays,
-        // i.e get a list of all courses that are assigned to the instructor and get the data for each one in an array.
+        names = new String[100];
+        codes = new String[100];
+        days = new String[100];
+        hours = new String[100];
+        capacities = new String[100];
+        descs = new String[100];
+
+        Cursor cursor = db.getData();
+
+        int i = 0;
+        while(cursor.moveToNext()){
+
+            if(cursor.getString(6) != null) {
+                if (cursor.getString(6).equals(nameText.getText())) {
+                    names[i] = cursor.getString(0);
+                    codes[i] = cursor.getString(1);
+                    days[i] = cursor.getString(2) + "|" + cursor.getString(3);
+                    hours[i] = cursor.getString(4) + "|" + cursor.getString(5);
+                    descs[i] = cursor.getString(7);
+                    capacities[i] = cursor.getString(8);
+                    i++;
+                }
+            }
+        }
+
+        //I love arrays :)
+        tnames = new String[i];
+        tcodes = new String[i];
+        tdays = new String[i];
+        thours = new String[i];
+        tcapacities = new String[i];
+        tdescs = new String[i];
+
+        for (int j = 0; j <i; j++){
+            tnames[j] = names[j];
+            tcodes[j] =  codes[j];
+            tdays[j] = days[j];
+            thours[j] = hours[j];
+            tdescs[j] = descs[j];
+            tcapacities[j] = capacities[j];
+        }
 
 
-        // DOUGLASS -> Remove this when the bit above is implemented
-        // v just for testing v //
-        names = new String[]{"name1", "name2", "name3"};
-        codes = new String[]{"code1","code2","code3"};
-        days = new String[]{"days1","days2","days3"};
-        hours = new String[]{"hours1","hours2","hours3"};
-        capacities = new String[]{"cap1","cap2","cap3"};
-        descs = new String[]{"desc1","desc2","desc3"};
-        // ^ just for testing ^ //
 
-//        InstructorFragment storage = this;
-
-
-
-        adapter = new InstructorAdapter(this.getContext(), names, codes, days, hours, capacities, descs, new InstructorAdapter.OnButtonClickListener() {
+        adapter = new InstructorAdapter(this.getContext(), tnames, tcodes, tdays, thours, tcapacities, tdescs, new InstructorAdapter.OnButtonClickListener() {
             @Override
             public void onButtonClick(int pos) {
                 System.out.println("pos: "+pos);
