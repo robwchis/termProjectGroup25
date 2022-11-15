@@ -19,6 +19,8 @@ public class course {
         courseTimes[0] = "";
         courseTimes[1] = "";
         instructor = "";
+        courseDesc = "";
+        studentCapacity = 0;
     }
 
     public void setName(String n){

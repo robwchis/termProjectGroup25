@@ -25,9 +25,10 @@ public class InstructorFragment2 extends Fragment {
     private @NonNull FragmentInstructor2Binding binding;
 
     String[] names, codes, tnames, tcodes;
-    String username;
+    String data;
     RecyclerView recyclerView;
     String instructor;
+    InstructorAdapter2 adapter;
 
     @Override
     public View onCreateView(
@@ -54,11 +55,14 @@ public class InstructorFragment2 extends Fragment {
         getParentFragmentManager().setFragmentResultListener("beepboop", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                username = result.getString("beepboop");
+                data = result.getString("beepboop");
                 Boolean data2 = result.getBoolean("beepboop2");
-                System.out.println("data: "+username);
+                System.out.println("data: "+data);
                 System.out.println("data2: "+data2);
-                instructor = String.valueOf(data2);
+                instructor = String.valueOf(data);
+                System.out.println("FUCK "+instructor);
+                String inst = String.valueOf(data);
+
             }
         });
 
@@ -90,13 +94,18 @@ public class InstructorFragment2 extends Fragment {
             tcodes[j] =  codes[j];
         }
         System.out.println(tnames[0]);
-
+        System.out.println("kog2 "+instructor);
         InstructorAdapter2 adapter = new InstructorAdapter2(this.getContext(), tnames, tcodes, new InstructorAdapter2.OnButtonClickListener() {
             @Override
             public void onButtonClick(int pos) {
                 System.out.println("pos: "+pos);
 
                 // DOUGLASS -> right here set the instructor for the course in position 'pos' to the instructor.
+                course re = new course(tnames[pos], tcodes[pos]);
+                db.removeCourse(re);
+                
+                re.setInstructor(inst);
+                db.addCourse(re);
 
                 // here
 

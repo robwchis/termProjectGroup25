@@ -59,11 +59,12 @@ public class adminDBHandler extends SQLiteOpenHelper {
         //Sets all the values, including the admin value, which is false by defalse* :) (*Default)
         values.put(COLUMN_COURSE_NAME, c.getName());
         values.put(COLUMN_COURSE_CODE, c.getCode());
-        values.put(COLUMN_COURSE_DAYONE, "");
-        values.put(COLUMN_COURSE_DAYTWO, "");
-        values.put(COLUMN_COURSE_TIMEONE, "");
-        values.put(COLUMN_COURSE_TIMETWO, "");
-        values.put(COLUMN_COURSE_DESCRIPTION, "");
+        values.put(COLUMN_COURSE_DAYONE, c.getCourseDays()[0]);
+        values.put(COLUMN_COURSE_DAYTWO, c.getCourseDays()[1]);
+        values.put(COLUMN_COURSE_TIMEONE, c.getCourseTimes()[0]);
+        values.put(COLUMN_COURSE_TIMETWO, c.getCourseTimes()[1]);
+        values.put(COLUMN_COURSE_INSTRUCTOR, c.getInstructor());
+        values.put(COLUMN_COURSE_DESCRIPTION, c.getCourseDesc());
         values.put(COLUMN_COURSE_CAP, 0);
 
         db.insert(TABLE_NAME, null, values);
