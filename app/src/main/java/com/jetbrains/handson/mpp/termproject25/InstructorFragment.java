@@ -78,6 +78,7 @@ public class InstructorFragment extends Fragment {
         while(cursor.moveToNext()){
 
             if(cursor.getString(6) != null) {
+
                 if (cursor.getString(6).equals(nameText.getText())) {
                     names[i] = cursor.getString(0);
                     codes[i] = cursor.getString(1);
@@ -144,7 +145,7 @@ public class InstructorFragment extends Fragment {
         });
 
 
-
+        updateStuff();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
@@ -154,18 +155,19 @@ public class InstructorFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String newText = nameText.getText().toString().substring(9);
+                System.out.println("SAME" +  newText);
 
                 Bundle bundle = new Bundle();
                 bundle.putString("beepboop", newText); // Put anything what you want
-                bundle.putBoolean("beepboop2",true);
 
-                getParentFragmentManager().setFragmentResult("beepboop",bundle);
+
+                getParentFragmentManager().setFragmentResult("beepboopBundle",bundle);
 
                 NavHostFragment.findNavController(InstructorFragment.this)
                         .navigate(R.id.action_instructorFragment_to_instructorFragment2);
             }
         });
-
+        System.out.println("nameText isssss" + nameText.getText());
 
     }
 

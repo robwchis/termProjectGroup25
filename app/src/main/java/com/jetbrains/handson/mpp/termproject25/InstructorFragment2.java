@@ -1,6 +1,7 @@
 package com.jetbrains.handson.mpp.termproject25;
 
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ public class InstructorFragment2 extends Fragment {
     RecyclerView recyclerView;
     String instructor;
     InstructorAdapter2 adapter;
+    TextView txtUsernameIF2;
 
     @Override
     public View onCreateView(
@@ -49,25 +51,25 @@ public class InstructorFragment2 extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        recyclerView = view.findViewById(R.id.recyclerView2);
         TextView nameText = view.findViewById(R.id.txt_displayUsernameInst);
+        txtUsernameIF2 = view.findViewById(R.id.txtUsernameIF2);
         adminDBHandler db = new adminDBHandler(InstructorFragment2.this.getContext());
-        getParentFragmentManager().setFragmentResultListener("beepboop", this, new FragmentResultListener() {
+        getParentFragmentManager().setFragmentResultListener("beepboopBundle", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                data = result.getString("beepboop");
-                Boolean data2 = result.getBoolean("beepboop2");
-                System.out.println("data: "+data);
-                System.out.println("data2: "+data2);
-                instructor = String.valueOf(data);
-                System.out.println("FUCK "+instructor);
-                String inst = String.valueOf(data);
+                data = result.getString("beepboop").trim();
 
+
+                System.out.println("datasdafsfsfdsfs: "+data);
+                instructor = String.valueOf(data);
+                txtUsernameIF2.setText(data);
+                System.out.println("XD Brother " + txtUsernameIF2.getText());
             }
         });
 
+        System.out.println("XD Brotherdd " + txtUsernameIF2.getText());
 
-        recyclerView = view.findViewById(R.id.recyclerView2);
 
         names = new String[100];
         codes = new String[100];
@@ -77,7 +79,7 @@ public class InstructorFragment2 extends Fragment {
         int i = 0;
         while(cursor.moveToNext()){
 
-            if(cursor.getString(6) == null) {
+            if((cursor.getString(6).equals(""))) {
                     names[i] = cursor.getString(0);
                     codes[i] = cursor.getString(1);
                     i++;
@@ -93,8 +95,8 @@ public class InstructorFragment2 extends Fragment {
             tnames[j] = names[j];
             tcodes[j] =  codes[j];
         }
-        System.out.println(tnames[0]);
-        System.out.println("kog2 "+instructor);
+
+
         InstructorAdapter2 adapter = new InstructorAdapter2(this.getContext(), tnames, tcodes, new InstructorAdapter2.OnButtonClickListener() {
             @Override
             public void onButtonClick(int pos) {
@@ -103,18 +105,17 @@ public class InstructorFragment2 extends Fragment {
                 // DOUGLASS -> right here set the instructor for the course in position 'pos' to the instructor.
                 course re = new course(tnames[pos], tcodes[pos]);
                 db.removeCourse(re);
-                
-                re.setInstructor(inst);
+                re.setInstructor(txtUsernameIF2.getText().toString());
+
                 db.addCourse(re);
 
                 // here
 
 
                 // DOGULASS -> this is still not working
-                String newText = instructor;
 
                 Bundle bundle = new Bundle();
-                bundle.putString("beepboop", newText); // Put anything what you want
+                bundle.putString("beepboop", txtUsernameIF2.getText().toString()); // Put anything what you want
                 bundle.putBoolean("beepboop2",true);
 
                 getParentFragmentManager().setFragmentResult("beepboop",bundle);
@@ -127,6 +128,7 @@ public class InstructorFragment2 extends Fragment {
         });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
     }
 
     @Override
