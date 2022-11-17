@@ -69,5 +69,8 @@
         <action
             android:id="@+id/action_instructorFragment2_self"
             app:destination="@id/instructorFragment2" />
+        <action
+            android:id="@+id/action_instructorFragment2_to_instructorFragment"
+            app:destination="@id/instructorFragment" />
     </fragment>
 </navigation>
