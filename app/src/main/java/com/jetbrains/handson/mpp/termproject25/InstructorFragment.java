@@ -1,5 +1,6 @@
 package com.jetbrains.handson.mpp.termproject25;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class InstructorFragment extends Fragment {
     RecyclerView recyclerView;
     InstructorAdapter adapter;
     Button pickCourse;
+    Context context;
 
 
 
@@ -59,110 +61,116 @@ public class InstructorFragment extends Fragment {
         getParentFragmentManager().setFragmentResultListener("beepboop", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                String data = result.getString("beepboop");
+                username = result.getString("beepboop");
                 Boolean data2 = result.getBoolean("beepboop2");
-                System.out.println("data: "+data);
+
                 System.out.println("data2: "+data2);
-                nameText.setText("Username: "+data);
+                nameText.setText("Username: "+username);
             }
         });
 
+        context = this.getContext();
 
         recyclerView = view.findViewById(R.id.recyclerView2);
 
-        names = new String[100];
-        codes = new String[100];
-        days = new String[100];
-        hours = new String[100];
-        capacities = new String[100];
-        descs = new String[100];
-
-        Cursor cursor = db.getData();
-
-        int i = 0;
-        while(cursor.moveToNext()){
-
-            if(cursor.getString(6) != null) {
-
-                if (cursor.getString(6).equals(" i")) {
-                    names[i] = cursor.getString(0);
-                    codes[i] = cursor.getString(1);
-                    days[i] = cursor.getString(2) + "|" + cursor.getString(3);
-                    hours[i] = cursor.getString(4) + "|" + cursor.getString(5);
-                    descs[i] = cursor.getString(7);
-                    capacities[i] = cursor.getString(8);
-                    i++;
-                }
-            }
-        }
-
-        //I love arrays :)
-        tnames = new String[i];
-        tcodes = new String[i];
-        tdays = new String[i];
-        thours = new String[i];
-        tcapacities = new String[i];
-        tdescs = new String[i];
-
-        for (int j = 0; j < i; j++){
-            tnames[j] = names[j];
-            tcodes[j] =  codes[j];
-            tdays[j] = days[j];
-            thours[j] = hours[j];
-            tdescs[j] = descs[j];
-            tcapacities[j] = capacities[j];
-        }
-
-
-
-        adapter = new InstructorAdapter(this.getContext(), tnames, tcodes, tdays, thours, tcapacities, tdescs, new InstructorAdapter.OnButtonClickListener() {
+        binding.loadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onButtonClick(int pos) {
-                System.out.println("pos: "+pos);
+            public void onClick(View view) {
+                names = new String[100];
+                codes = new String[100];
+                days = new String[100];
+                hours = new String[100];
+                capacities = new String[100];
+                descs = new String[100];
 
-                // DOUGLASS -> right here set the instructor for the course in position 'pos' to unassigned.
-                // then get a list of all courses that are assigned to the instructor and get the data for each one in an array (again).
+                Cursor cursor = db.getData();
 
-                // here
+                int i = 0;
+                while(cursor.moveToNext()){
 
-                course re = new course(tnames[pos], tcodes[pos]);
-                db.removeCourse(re);
-                re.setInstructor("");
+                    if(cursor.getString(6) != null) {
+                        System.out.println("HELLO" + username + "aa" +cursor.getString(6) );
+                        if (cursor.getString(6).equals(username)) {
+                            names[i] = cursor.getString(0);
+                            codes[i] = cursor.getString(1);
+                            days[i] = cursor.getString(2) + "|" + cursor.getString(3);
+                            hours[i] = cursor.getString(4) + "|" + cursor.getString(5);
+                            descs[i] = cursor.getString(7);
+                            capacities[i] = cursor.getString(8);
+                            i++;
+                        }
+                    }
+                }
 
-                db.addCourse(re);
+                //I love arrays :)
+                tnames = new String[i];
+                tcodes = new String[i];
+                tdays = new String[i];
+                thours = new String[i];
+                tcapacities = new String[i];
+                tdescs = new String[i];
+
+                for (int j = 0; j < i; j++){
+                    tnames[j] = names[j];
+                    tcodes[j] =  codes[j];
+                    tdays[j] = days[j];
+                    thours[j] = hours[j];
+                    tdescs[j] = descs[j];
+                    tcapacities[j] = capacities[j];
+                }
+
+
+                adapter = new InstructorAdapter(context, tnames, tcodes, tdays, thours, tcapacities, tdescs, new InstructorAdapter.OnButtonClickListener() {
+                    @Override
+                    public void onButtonClick(int pos) {
+                        System.out.println("pos: "+pos);
+
+                        // DOUGLASS -> right here set the instructor for the course in position 'pos' to unassigned.
+                        // then get a list of all courses that are assigned to the instructor and get the data for each one in an array (again).
+
+                        // here
+
+                        course re = new course(tnames[pos], tcodes[pos]);
+                        db.removeCourse(re);
+                        re.setInstructor("");
+
+                        db.addCourse(re);
 
 
 //                capacities = new String[]{"cap1h","cap2h","cap3h"};
-                updateStuff();
+                        updateStuff();
 
 
-            }
-        }, new InstructorAdapter.OnButton2ClickListener() {
-            @Override
-            public void onButton2Click(int pos, String d, String h, String cap, String desc) {
-                System.out.println("pos: "+pos);
+                    }
+                }, new InstructorAdapter.OnButton2ClickListener() {
+                    @Override
+                    public void onButton2Click(int pos, String d, String h, String cap, String desc) {
+                        System.out.println("pos: "+pos);
 
-                course re = new course(tnames[pos], tcodes[pos]);
-                db.removeCourse(re);
+                        course re = new course(tnames[pos], tcodes[pos]);
+                        db.removeCourse(re);
 
-                re.setCourseDesc(desc);
-                String[] dumb = d.split("/", 2);
-                re.setCourseDays(dumb[0], dumb[1]);
-                String[] dumb2 = h.split("/", 2);
-                re.setCourseTimes(dumb2[0], dumb2[1]);
-                re.setStudentCapacity(cap);
+                        re.setCourseDesc(desc);
+                        String[] dumb = d.split("/", 2);
+                        re.setCourseDays(dumb[0], dumb[1]);
+                        String[] dumb2 = h.split("/", 2);
+                        re.setCourseTimes(dumb2[0], dumb2[1]);
+                        re.setStudentCapacity(cap);
 
-                db.addCourse(re);
-                updateStuff();
+                        db.addCourse(re);
+                        updateStuff();
 
+
+                    }
+                });
+
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
             }
         });
 
 
-
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
 //        pickCourse = view.findViewById(R.id.addCourseBtn);
 

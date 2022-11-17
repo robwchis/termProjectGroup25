@@ -59,7 +59,12 @@ public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.in
 
     @Override
     public int getItemCount() {
-        return names.length;
+        if(names == null){
+            return 0;
+        } else {
+            return names.length;
+        }
+
     }
 
     public class instructorViewHolder extends RecyclerView.ViewHolder {

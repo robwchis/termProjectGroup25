@@ -89,15 +89,13 @@ public class InstructorFragment2 extends Fragment {
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 data = result.getString("beepboop").trim();
 
-
-                System.out.println("datasdafsfsfdsfs: "+data);
                 instructor = String.valueOf(data);
                 txtUsernameIF2.setText(data);
-                System.out.println("XD Brother " + txtUsernameIF2.getText());
+
             }
         });
 
-        System.out.println("XD Brotherdd " + txtUsernameIF2.getText());
+
 
 
         names = new String[100];
@@ -142,7 +140,7 @@ public class InstructorFragment2 extends Fragment {
 
 
                 // DOGULASS -> this is still not working
-                updateStuff();
+
             }
         });
         recyclerView.setAdapter(adapter);
