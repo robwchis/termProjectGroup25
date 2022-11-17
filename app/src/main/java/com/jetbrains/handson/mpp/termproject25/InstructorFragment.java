@@ -93,8 +93,8 @@ public class InstructorFragment extends Fragment {
                         if (cursor.getString(6).equals(username)) {
                             names[i] = cursor.getString(0);
                             codes[i] = cursor.getString(1);
-                            days[i] = cursor.getString(2) + "|" + cursor.getString(3);
-                            hours[i] = cursor.getString(4) + "|" + cursor.getString(5);
+                            days[i] = cursor.getString(2) + "/" + cursor.getString(3);
+                            hours[i] = cursor.getString(4) + "/" + cursor.getString(5);
                             descs[i] = cursor.getString(7);
                             capacities[i] = cursor.getString(8);
                             i++;
@@ -156,6 +156,7 @@ public class InstructorFragment extends Fragment {
                         String[] dumb2 = h.split("/", 2);
                         re.setCourseTimes(dumb2[0], dumb2[1]);
                         re.setStudentCapacity(cap);
+                        re.setInstructor(username);
 
                         db.addCourse(re);
                         updateStuff();

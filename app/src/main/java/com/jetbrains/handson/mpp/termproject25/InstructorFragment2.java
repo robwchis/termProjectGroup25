@@ -1,12 +1,14 @@
 package com.jetbrains.handson.mpp.termproject25;
 
 
-import android.content.Intent;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
@@ -19,7 +21,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jetbrains.handson.mpp.termproject25.databinding.FragmentInstructor2Binding;
-import com.jetbrains.handson.mpp.termproject25.databinding.FragmentInstructorBinding;
 
 public class InstructorFragment2 extends Fragment {
 
@@ -34,6 +35,8 @@ public class InstructorFragment2 extends Fragment {
     InstructorAdapter2 adapter;
     TextView txtUsernameIF2;
     adminDBHandler db;
+    EditText n, c;
+    Context context;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,9 +83,14 @@ public class InstructorFragment2 extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         recyclerView = view.findViewById(R.id.recyclerView2);
         TextView nameText = view.findViewById(R.id.txt_displayUsernameInst);
         txtUsernameIF2 = view.findViewById(R.id.txtUsernameIF2);
+        n = (EditText) view.findViewById(R.id.etSearchName);
+        c = (EditText) view.findViewById(R.id.etSearchCode);
+        context = this.getContext();
+
         db = new adminDBHandler(InstructorFragment2.this.getContext());
         getParentFragmentManager().setFragmentResultListener("beepboopBundle", this, new FragmentResultListener() {
             @Override
@@ -145,6 +153,52 @@ public class InstructorFragment2 extends Fragment {
         });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        //Search Functionality
+        binding.searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String[] sNames = new String[100];
+                String[] sCodes = new String[100];
+
+                String ns = n.getText().toString();
+                String cs = c.getText().toString();
+//                System.out.println("aa" + ns);
+//                System.out.println("aba" + cs);
+
+                Cursor cursor = db.getData();
+
+                int i = 0;
+                while(cursor.moveToNext()){
+
+                    if((cursor.getString(6).equals(""))) {
+                        if(cursor.getString(0).equals(ns) && (cursor.getString(1).equals(cs))){
+                            names[i] = cursor.getString(0);
+                            codes[i] = cursor.getString(1);
+                            //System.out.println("name" + names[i]+ " code " + codes[i]);
+                            i++;
+                        }
+
+                    }
+                }
+
+                //I love arrays :)
+                tnames = new String[i];
+                tcodes = new String[i];
+
+
+                for (int j = 0; j <i; j++){
+                    tnames[j] = names[j];
+                    tcodes[j] =  codes[j];
+                    System.out.println("aname" + tnames[j]+ " acode " + tcodes[j]);
+                }
+
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            }
+        });
+
 
     }
 

@@ -65,7 +65,7 @@ public class adminDBHandler extends SQLiteOpenHelper {
         values.put(COLUMN_COURSE_TIMETWO, c.getCourseTimes()[1]);
         values.put(COLUMN_COURSE_INSTRUCTOR, c.getInstructor());
         values.put(COLUMN_COURSE_DESCRIPTION, c.getCourseDesc());
-        values.put(COLUMN_COURSE_CAP, 0);
+        values.put(COLUMN_COURSE_CAP, c.getStudentCapacity());
 
         db.insert(TABLE_NAME, null, values);
         db.close();
