@@ -194,8 +194,7 @@ public class InstructorFragment2 extends Fragment {
                     System.out.println("aname" + tnames[j]+ " acode " + tcodes[j]);
                 }
 
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                updateStuff();
             }
         });
 
@@ -206,7 +205,7 @@ public class InstructorFragment2 extends Fragment {
 
         System.out.println("GETS TO THIS POINT");
 
-        adapter = new InstructorAdapter2(this.getContext(), names, codes, new InstructorAdapter2.OnButtonClickListener() {
+        adapter = new InstructorAdapter2(this.getContext(), tnames, tcodes, new InstructorAdapter2.OnButtonClickListener() {
             @Override
             public void onButtonClick(int pos) {
                 System.out.println("pos: "+pos);
@@ -218,11 +217,6 @@ public class InstructorFragment2 extends Fragment {
 
                 db.addCourse(re);
 
-                // here
-
-
-                // DOGULASS -> this is still not working
-                updateStuff();
             }
         });
 
