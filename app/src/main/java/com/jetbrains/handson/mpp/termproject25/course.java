@@ -6,7 +6,7 @@ public class course {
     private String[] courseDays;
     private String[] courseTimes;
     private String courseDesc;
-    private int studentCapacity;
+    private String studentCapacity;
     private String instructor;
 
     public course(String n, String c){
@@ -20,7 +20,7 @@ public class course {
         courseTimes[1] = "";
         instructor = "";
         courseDesc = "";
-        studentCapacity = 0;
+        studentCapacity = "";
     }
 
     public void setName(String n){
@@ -68,5 +68,9 @@ public class course {
     public void setInstructor(String inst){instructor = inst;}
 
     public String getInstructor(){return instructor;}
+
+    public void setStudentCapacity(String c){studentCapacity =c;}
+
+    public String getStudentCapacity(){return studentCapacity;}
 
 }

@@ -1,6 +1,6 @@
 package com.jetbrains.handson.mpp.termproject25;
 
-
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,22 +23,24 @@ public class InstructorFragment extends Fragment {
     //xml stuff
 
     private FragmentInstructorBinding binding;
-
+    String username;
     String[] names, codes, days, hours, capacities, descs, tnames, tcodes, tdays, thours, tcapacities, tdescs;
     RecyclerView recyclerView;
     InstructorAdapter adapter;
     Button pickCourse;
 
+
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
+
+
     ) {
 
         binding = FragmentInstructorBinding.inflate(inflater, container, false);
         return binding.getRoot();
-
-
 
     }
 
@@ -51,6 +53,9 @@ public class InstructorFragment extends Fragment {
 
         TextView nameText = view.findViewById(R.id.txt_displayUsernameInst);
         adminDBHandler db = new adminDBHandler(InstructorFragment.this.getContext());
+
+
+
         getParentFragmentManager().setFragmentResultListener("beepboop", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
@@ -79,7 +84,7 @@ public class InstructorFragment extends Fragment {
 
             if(cursor.getString(6) != null) {
 
-                if (cursor.getString(6).equals(nameText.getText())) {
+                if (cursor.getString(6).equals(" i")) {
                     names[i] = cursor.getString(0);
                     codes[i] = cursor.getString(1);
                     days[i] = cursor.getString(2) + "|" + cursor.getString(3);
@@ -99,7 +104,7 @@ public class InstructorFragment extends Fragment {
         tcapacities = new String[i];
         tdescs = new String[i];
 
-        for (int j = 0; j <i; j++){
+        for (int j = 0; j < i; j++){
             tnames[j] = names[j];
             tcodes[j] =  codes[j];
             tdays[j] = days[j];
@@ -120,6 +125,12 @@ public class InstructorFragment extends Fragment {
 
                 // here
 
+                course re = new course(tnames[pos], tcodes[pos]);
+                db.removeCourse(re);
+                re.setInstructor("");
+
+                db.addCourse(re);
+
 
 //                capacities = new String[]{"cap1h","cap2h","cap3h"};
                 updateStuff();
@@ -131,13 +142,17 @@ public class InstructorFragment extends Fragment {
             public void onButton2Click(int pos, String d, String h, String cap, String desc) {
                 System.out.println("pos: "+pos);
 
-                // DOUGLASS -> right here set every value for the item in position "pos" to the values put here in here
-                // then get a list of all courses that are assigned to the instructor and get the data for each one in an array (again).
+                course re = new course(tnames[pos], tcodes[pos]);
+                db.removeCourse(re);
 
-                // here
+                re.setCourseDesc(desc);
+                String[] dumb = d.split("/", 2);
+                re.setCourseDays(dumb[0], dumb[1]);
+                String[] dumb2 = h.split("/", 2);
+                re.setCourseTimes(dumb2[0], dumb2[1]);
+                re.setStudentCapacity(cap);
 
-
-//                capacities = new String[]{"cap1h","cap2h","cap3h"};
+                db.addCourse(re);
                 updateStuff();
 
 
@@ -145,7 +160,7 @@ public class InstructorFragment extends Fragment {
         });
 
 
-        updateStuff();
+
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
