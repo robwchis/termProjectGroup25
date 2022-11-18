@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -169,20 +170,54 @@ public class InstructorFragment extends Fragment {
                     @Override
                     public void onButton2Click(int pos, String d, String h, String cap, String desc) {
                         System.out.println("pos: "+pos);
-
+                        boolean good = true;
+                        Toast toast;
                         course re = new course(tnames[pos], tcodes[pos]);
                         db.removeCourse(re);
-
                         re.setCourseDesc(desc);
-                        String[] dumb = d.split("/", 2);
-                        re.setCourseDays(dumb[0], dumb[1]);
-                        String[] dumb2 = h.split("/", 2);
-                        re.setCourseTimes(dumb2[0], dumb2[1]);
-                        re.setStudentCapacity(cap);
-                        re.setInstructor(username);
 
-                        db.addCourse(re);
-                        updateStuff();
+
+                        if (!d.contains("/")) {
+                            toast = Toast.makeText(context, "ERROR: Days formatted incorrectly", Toast.LENGTH_LONG);
+                            toast.show();
+                            good = false;
+                            System.out.println("ERR DAY");
+                        } else {
+                            String[] dumb = d.split("/", 2);
+                            re.setCourseDays(dumb[0], dumb[1]);
+                        }
+
+
+
+                        if (!h.contains("/")) {
+                            toast = Toast.makeText(context, "ERROR: Hours formatted incorrectly", Toast.LENGTH_LONG);
+                            toast.show();
+                            good = false;
+                            System.out.println("ERR DAY");
+                        } else {
+                            String[] dumb2 = h.split("/", 2);
+                            re.setCourseTimes(dumb2[0], dumb2[1]);
+                        }
+
+
+                        try {
+                            final int i1 = Integer.parseInt(cap) + 10;
+                            re.setStudentCapacity(cap);
+                        } catch(Exception e) {
+                            System.out.println("ERR CAP");
+                            toast = Toast.makeText(context, "ERROR: Capacity formatted incorrectly", Toast.LENGTH_LONG);
+                            toast.show();
+                            good = false;
+                        }
+
+                        re.setInstructor(username);
+                        if (good) {
+                            db.addCourse(re);
+                            updateStuff();
+                            toast = Toast.makeText(context, "Changes saved.", Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+
 
 
                     }

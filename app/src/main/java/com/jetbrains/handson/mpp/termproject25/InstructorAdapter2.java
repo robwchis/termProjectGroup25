@@ -58,7 +58,7 @@ public class InstructorAdapter2 extends RecyclerView.Adapter<InstructorAdapter2.
             nameView = itemView.findViewById(R.id.name);
             codeView = itemView.findViewById(R.id.code);
             posView = itemView.findViewById(R.id.pos);
-            button = itemView.findViewById(R.id.add_btn);
+            button = itemView.findViewById(R.id.add);
 
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
