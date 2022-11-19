@@ -172,7 +172,8 @@ public class InstructorFragment extends Fragment {
                         System.out.println("pos: "+pos);
                         boolean good = true;
                         Toast toast;
-                        course re = new course(tnames[pos], tcodes[pos]);
+                        course reOrig = new course(tnames[pos], tcodes[pos]);
+                        course re = reOrig;
                         db.removeCourse(re);
                         re.setCourseDesc(desc);
 
@@ -216,6 +217,9 @@ public class InstructorFragment extends Fragment {
                             updateStuff();
                             toast = Toast.makeText(context, "Changes saved.", Toast.LENGTH_LONG);
                             toast.show();
+                        } else {
+                            db.addCourse(reOrig);
+                            updateStuff();
                         }
 
 

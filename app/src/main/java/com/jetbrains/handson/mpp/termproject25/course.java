@@ -13,14 +13,14 @@ public class course {
         name = n;
         code = c;
         courseDays = new String[2];
-        courseDays[0] = "";
-        courseDays[1] = "";
+        courseDays[0] = "Day1";
+        courseDays[1] = "Day2";
         courseTimes = new String[2];
-        courseTimes[0] = "";
-        courseTimes[1] = "";
+        courseTimes[0] = "0:00";
+        courseTimes[1] = "0:00";
         instructor = "";
-        courseDesc = "";
-        studentCapacity = "";
+        courseDesc = "Description.";
+        studentCapacity = "0";
     }
 
     public void setName(String n){
