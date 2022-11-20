@@ -15,16 +15,21 @@ public class InstructorAdapter2 extends RecyclerView.Adapter<InstructorAdapter2.
         void onButtonClick(int pos);
     }
 
-    String[] names,codes;
+    String[] names,codes, days, hours, capacites, descriptions, instructor;
     Context context;
     OnButtonClickListener listener;
 
 
 
-    public InstructorAdapter2(Context ct, String[] n, String[] c, OnButtonClickListener l) {
+    public InstructorAdapter2(Context ct, String[] n, String[] c, String[] d, String[] h, String[] cap, String[] desc, String[] i, OnButtonClickListener l) {
         this.context = ct;
         this.names = n;
         this.codes = c;
+        this.days = d;
+        this.hours = h;
+        this.capacites = cap;
+        this.descriptions = desc;
+        this.instructor = i;
         this.listener = l;
     }
 

@@ -28,7 +28,7 @@ public class InstructorFragment extends Fragment {
 
     private FragmentInstructorBinding binding;
     String username;
-    String[] names, codes, days, hours, capacities, descs, tnames, tcodes, tdays, thours, tcapacities, tdescs;
+    String[] names, codes, days, hours, capacities, descs,inst, tinst, tnames, tcodes, tdays, thours, tcapacities, tdescs;
     RecyclerView recyclerView;
     InstructorAdapter adapter;
     Button pickCourse;
@@ -106,6 +106,7 @@ public class InstructorFragment extends Fragment {
                 hours = new String[100];
                 capacities = new String[100];
                 descs = new String[100];
+                inst = new String[100];
 
                 Cursor cursor = db.getData();
 
@@ -119,6 +120,7 @@ public class InstructorFragment extends Fragment {
                             codes[i] = cursor.getString(1);
                             days[i] = cursor.getString(2) + "/" + cursor.getString(3);
                             hours[i] = cursor.getString(4) + "/" + cursor.getString(5);
+                            inst[i] = cursor.getString(6);
                             descs[i] = cursor.getString(7);
                             capacities[i] = cursor.getString(8);
                             i++;
@@ -133,6 +135,7 @@ public class InstructorFragment extends Fragment {
                 thours = new String[i];
                 tcapacities = new String[i];
                 tdescs = new String[i];
+                tinst = new String[i];
 
                 for (int j = 0; j < i; j++){
                     tnames[j] = names[j];
@@ -141,10 +144,11 @@ public class InstructorFragment extends Fragment {
                     thours[j] = hours[j];
                     tdescs[j] = descs[j];
                     tcapacities[j] = capacities[j];
+                    tinst[j] = inst[j];
                 }
 
 
-                adapter = new InstructorAdapter(context, tnames, tcodes, tdays, thours, tcapacities, tdescs, new InstructorAdapter.OnButtonClickListener() {
+                adapter = new InstructorAdapter(context, tnames, tcodes, tdays, thours, tcapacities, tdescs, tinst, new InstructorAdapter.OnButtonClickListener() {
                     @Override
                     public void onButtonClick(int pos) {
                         System.out.println("pos: "+pos);
@@ -261,7 +265,7 @@ public class InstructorFragment extends Fragment {
 
         System.out.println("GETS TO THIS POINT");
 
-        adapter = new InstructorAdapter(this.getContext(), tnames, tcodes, tdays, thours, tcapacities, tdescs, new InstructorAdapter.OnButtonClickListener() {
+        adapter = new InstructorAdapter(this.getContext(), tnames, tcodes, tdays, thours, tcapacities, tdescs, tinst,new InstructorAdapter.OnButtonClickListener() {
             @Override
             public void onButtonClick(int pos) {
                 System.out.println("pos: "+pos);

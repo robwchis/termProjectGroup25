@@ -28,7 +28,7 @@ public class InstructorFragment2 extends Fragment {
 
     private @NonNull FragmentInstructor2Binding binding;
 
-    String[] names, codes, tnames, tcodes;
+    String[] names, codes, days, hours, capacities, inst, descs, tdescs, tnames, tcodes, tdays, thours, tcapacities, tinst;
     String data;
     RecyclerView recyclerView;
     String instructor;
@@ -108,31 +108,48 @@ public class InstructorFragment2 extends Fragment {
 
         names = new String[100];
         codes = new String[100];
+        days = new String[100];
+        hours = new String[100];
+        capacities = new String[100];
+        descs = new String[100];
+        inst = new String[100];
 
         Cursor cursor = db.getData();
 
         int i = 0;
         while(cursor.moveToNext()){
-
-            if((cursor.getString(6).equals(""))) {
-                    names[i] = cursor.getString(0);
-                    codes[i] = cursor.getString(1);
-                    i++;
-            }
+            names[i] = cursor.getString(0);
+            codes[i] = cursor.getString(1);
+            days[i] = cursor.getString(2) + "/" + cursor.getString(3);
+            hours[i] = cursor.getString(4) + "/" + cursor.getString(5);
+            inst[i] = cursor.getString(6);
+            descs[i] = cursor.getString(7);
+            capacities[i] = cursor.getString(8);
+            i++;
         }
 
         //I love arrays :)
         tnames = new String[i];
         tcodes = new String[i];
+        tdays = new String[i];
+        thours = new String[i];
+        tcapacities = new String[i];
+        tdescs = new String[i];
+        tinst = new String[i];
 
 
         for (int j = 0; j <i; j++){
             tnames[j] = names[j];
             tcodes[j] =  codes[j];
+            tdays[j] = days[j];
+            thours[j] = hours[j];
+            tdescs[j] = descs[j];
+            tcapacities[j] = capacities[j];
+            tinst[j] = inst[j];
         }
 
 
-        InstructorAdapter2 adapter = new InstructorAdapter2(this.getContext(), tnames, tcodes, new InstructorAdapter2.OnButtonClickListener() {
+        InstructorAdapter2 adapter = new InstructorAdapter2(this.getContext(), tnames, tcodes, tdays, thours, tcapacities, tdescs, tinst, new InstructorAdapter2.OnButtonClickListener() {
             @Override
             public void onButtonClick(int pos) {
                 System.out.println("pos: "+pos);
@@ -205,7 +222,7 @@ public class InstructorFragment2 extends Fragment {
 
         System.out.println("GETS TO THIS POINT");
 
-        adapter = new InstructorAdapter2(this.getContext(), tnames, tcodes, new InstructorAdapter2.OnButtonClickListener() {
+        adapter = new InstructorAdapter2(this.getContext(), tnames, tcodes, tdays, thours, tcapacities, tdescs, tinst, new InstructorAdapter2.OnButtonClickListener() {
             @Override
             public void onButtonClick(int pos) {
                 System.out.println("pos: "+pos);
