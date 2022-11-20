@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -156,10 +157,25 @@ public class InstructorFragment2 extends Fragment {
 
                 // DOUGLASS -> right here set the instructor for the course in position 'pos' to the instructor.
                 course re = new course(tnames[pos], tcodes[pos]);
-                db.removeCourse(re);
-                re.setInstructor(txtUsernameIF2.getText().toString());
+                if (tinst[pos].equals("")) {
+                    db.removeCourse(re);
+                    re.setInstructor(txtUsernameIF2.getText().toString());
 
-                db.addCourse(re);
+                    db.addCourse(re);
+                } else {
+                    System.out.println("its here");
+                    Toast msg = Toast.makeText(context, "Course already has instructor.", Toast.LENGTH_LONG);
+                    msg.show();
+                }
+
+
+
+                System.out.println("ggg"+re.getInstructor()+"ggg");
+                System.out.println(re.getInstructor().equals("")+"ggg2");
+
+
+
+
 
                 // here
 

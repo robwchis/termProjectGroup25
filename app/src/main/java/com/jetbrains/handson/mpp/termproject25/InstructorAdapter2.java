@@ -46,6 +46,18 @@ public class InstructorAdapter2 extends RecyclerView.Adapter<InstructorAdapter2.
         holder.nameView.setText(names[position]);
         holder.codeView.setText(codes[position]);
         holder.posView.setText(String.valueOf(position));
+
+        System.out.println("|"+instructor[position]+"|");
+        System.out.println("||"+instructor[position].equals("")+"||");
+        if (instructor[position].equals("")) {
+            holder.instView.setText("Current inst: None");
+        } else {
+            holder.instView.setText("Current inst: "+instructor[position]);
+        }
+        holder.dayView.setText(days[position]);
+        holder.hourView.setText(hours[position]);
+        holder.capView.setText(capacites[position]);
+        holder.descView.setText(descriptions[position]);
     }
 
     @Override
@@ -55,7 +67,7 @@ public class InstructorAdapter2 extends RecyclerView.Adapter<InstructorAdapter2.
 
     public class instructorViewHolder extends RecyclerView.ViewHolder {
 
-        TextView nameView, codeView, posView;
+        TextView nameView, codeView, posView, instView, dayView, hourView, capView, descView;
         Button button;
 
         public instructorViewHolder(@NonNull View itemView) {
@@ -63,6 +75,11 @@ public class InstructorAdapter2 extends RecyclerView.Adapter<InstructorAdapter2.
             nameView = itemView.findViewById(R.id.name);
             codeView = itemView.findViewById(R.id.code);
             posView = itemView.findViewById(R.id.pos);
+            instView = itemView.findViewById(R.id.inst);
+            dayView = itemView.findViewById(R.id.txtDays);
+            hourView = itemView.findViewById(R.id.txtHours);
+            capView = itemView.findViewById(R.id.txtCap);
+            descView = itemView.findViewById(R.id.txtDesc);
             button = itemView.findViewById(R.id.add);
 
             button.setOnClickListener(new View.OnClickListener() {
