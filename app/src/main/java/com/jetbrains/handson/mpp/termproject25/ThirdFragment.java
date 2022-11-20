@@ -44,6 +44,7 @@ public class ThirdFragment extends Fragment {
         a.removeUser(u);
 
 
+
         binding.btnConfirmLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
