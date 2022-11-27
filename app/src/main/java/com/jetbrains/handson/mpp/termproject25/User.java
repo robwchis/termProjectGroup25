@@ -21,10 +21,9 @@ public class User {
     private String course5Code;
     private String course5Day2;
 
-    public User(String u, String p, int adm){
+    public User(String u, String p){
         username = u;
         password = p;
-
         course1Code = "";
         course1Day1 = "";
         course1Day2 = "";

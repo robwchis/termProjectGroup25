@@ -31,13 +31,14 @@ public class FinalFragment2 extends Fragment {
     FragmentFinal2Binding binding;
 
     String[] names, codes, days, hours, capacities, inst, descs, tdescs, tnames, tcodes, tdays, thours, tcapacities, tinst;
-    String data;
+    String data, data2;
     RecyclerView recyclerView;
     String instructor;
     FinalAdapter2 adapter;
     TextView txtUsernameIF2;
     adminDBHandler db;
-    EditText n, c;
+    userDBHandler uDB;
+    EditText n, c, d;
     Context context;
 
     @Override
@@ -91,16 +92,20 @@ public class FinalFragment2 extends Fragment {
         txtUsernameIF2 = view.findViewById(R.id.txtUsernameIF2);
         n = (EditText) view.findViewById(R.id.etSearchName);
         c = (EditText) view.findViewById(R.id.etSearchCode);
+        d = (EditText) view.findViewById(R.id.etSearchDays);
         context = this.getContext();
 
         db = new adminDBHandler(FinalFragment2.this.getContext());
+        uDB = new userDBHandler(FinalFragment2.this.getContext());
         getParentFragmentManager().setFragmentResultListener("beepboopBundle", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 data = result.getString("beepboop").trim();
+                data2 = result.getString("beepboop :)");
+
 
                 instructor = String.valueOf(data);
-                txtUsernameIF2.setText(data);
+                txtUsernameIF2.setText(data +" : "+ data2);
 
             }
         });
@@ -155,6 +160,13 @@ public class FinalFragment2 extends Fragment {
             @Override
             public void onButtonClick(int pos) {
 
+                User u = new User(data, data2);
+                uDB.removeUser(u);
+
+                u.setCourse(tcodes[pos], tdays[pos], thours[pos]);
+                uDB.addUser(u);
+                System.out.println(u.getCourseCode(1) + " " + u.getCourseDay1(1) + " " +u.getCourseDay2(1) );
+
             }
         });
         recyclerView.setAdapter(adapter);
@@ -165,7 +177,41 @@ public class FinalFragment2 extends Fragment {
             @Override
             public void onClick(View view) {
                 // ENROLL HERE @JAMES
+                String[] sNames = new String[100];
+                String[] sCodes = new String[100];
 
+                String ns = n.getText().toString();
+                String cs = c.getText().toString();
+                String[] ds = d.getText().toString().split("/");
+
+                Cursor cursor = db.getData();
+
+                int i = 0;
+                while(cursor.moveToNext()){
+
+                    if((cursor.getString(6).equals(""))) {
+                        if(cursor.getString(0).equals(ns) || ( (cursor.getString(2).equals(ds[0])) && (cursor.getString(3).equals(ds[1])) ) ||cursor.getString(1).equals(cs) ){
+                            names[i] = cursor.getString(0);
+                            codes[i] = cursor.getString(1);
+                            //System.out.println("name" + names[i]+ " code " + codes[i]);
+                            i++;
+                        }
+
+                    }
+                }
+
+                //I love arrays :)
+                tnames = new String[i];
+                tcodes = new String[i];
+
+
+                for (int j = 0; j <i; j++){
+                    tnames[j] = names[j];
+                    tcodes[j] =  codes[j];
+                    System.out.println("aname" + tnames[j]+ " acode " + tcodes[j]);
+                }
+
+                updateStuff();
 
             }
         });
@@ -181,6 +227,58 @@ public class FinalFragment2 extends Fragment {
             @Override
             public void onButtonClick(int pos) {
                 // ENROLL HERE @JAMES
+                User u = new User(data, data2);
+                Cursor cursor = uDB.getData();
+
+                while(!cursor.getString(0).equals(data)){
+                    cursor.moveToNext();
+                }
+
+                System.out.println("XD" + cursor.getString(0));
+                String course1= "",course2= "",course3= "",course4= "",course5 = "";
+
+
+                if(!(cursor.getString(2).toString().equals(""))){
+                    System.out.println("HAS ONE AL:READY");
+                    course1 = cursor.getString(2)+ "_" + cursor.getString(3)+ "_" + cursor.getString(4)+ "_";
+
+                    if(!(cursor.getString(5).toString().equals(""))){
+
+                        course2 = cursor.getString(5)+ "_" + cursor.getString(6)+ "_" + cursor.getString(7)+ "_";
+
+                        if(!(cursor.getString(8).toString().equals(""))){
+
+                            course3 = cursor.getString(8)+ "_" + cursor.getString(9)+ "_" + cursor.getString(10)+ "_";
+
+                            if(!(cursor.getString(11).toString().equals(""))){
+
+                                course4 = cursor.getString(11)+ "_" + cursor.getString(12)+ "_" + cursor.getString(13)+ "_";
+
+                                if(!(cursor.getString(14).toString().equals(""))){
+
+                                    course5 = cursor.getString(14)+ "_" + cursor.getString(15)+ "_" + cursor.getString(16)+ "_";
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                uDB.removeUser(u);
+
+                if(!course1.equals("")){
+
+                    String[] temp = course1.split("_");
+                    u.setCourse(temp[1], temp[1], temp[2]);
+
+                }
+
+                u.setCourse(tcodes[pos], tdays[pos], thours[pos]);
+
+                uDB.addUser(u);
+                System.out.println(u.getCourseCode(1) + " " + u.getCourseDay1(1) + " " +u.getCourseDay2(1) );
+
             }
         });
 

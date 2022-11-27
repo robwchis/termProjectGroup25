@@ -65,7 +65,7 @@ public class SecondFragment extends Fragment {
 
                     String username = etUsername.getText().toString();
                     String password = etPassword.getText().toString();
-                    User nUser = new User(username, password, 0);
+                    User nUser = new User(username, password);
                     userDB.addUser(nUser);
 
                     NavHostFragment.findNavController(SecondFragment.this)
@@ -79,7 +79,7 @@ public class SecondFragment extends Fragment {
 
                     String username = etUsername.getText().toString();
                     String password = etPassword.getText().toString();
-                    User nUser = new User(username, password, 0);
+                    User nUser = new User(username, password);
                     instDB.addUser(nUser);
 
                     NavHostFragment.findNavController(SecondFragment.this)

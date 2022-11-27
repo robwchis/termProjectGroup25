@@ -40,7 +40,7 @@ public class ThirdFragment extends Fragment {
         etPassword = view.findViewById(R.id.txt_password_login);
 
         userDBHandler a = new userDBHandler(ThirdFragment.this.getContext());
-        User u = new User("admin", "admin123", 0);
+        User u = new User("admin", "admin123");
         a.removeUser(u);
 
 
@@ -79,7 +79,7 @@ public class ThirdFragment extends Fragment {
 
                             Bundle bundle = new Bundle();
                             bundle.putString("beepboop", etUsername.getText().toString()); // Put anything what you want
-                            bundle.putBoolean("beepboop2",false);
+                            bundle.putString("beepboop2", etPassword.getText().toString());
 
                             getParentFragmentManager().setFragmentResult("beepboop",bundle);
 
@@ -107,7 +107,7 @@ public class ThirdFragment extends Fragment {
 
                             Bundle bundle = new Bundle();
                             bundle.putString("beepboop", etUsername.getText().toString()); // Put anything what you want
-                            bundle.putBoolean("beepboop2",true);
+                            bundle.putString("beepboop :)", etPassword.getText().toString());
 
                             getParentFragmentManager().setFragmentResult("beepboop",bundle);
 

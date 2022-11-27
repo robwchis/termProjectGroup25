@@ -81,20 +81,20 @@ public class userDBHandler extends SQLiteOpenHelper {
         values.put(COLUMN_USERNAME, user.getUsername());
         values.put(COLUMN_PASSWORD, user.getPassword());
         values.put(COLUMN_COURSE1_CODE, user.getCourseCode(1));
-        values.put(COLUMN_COURSE1_DAY1, user.getCourseCode(1));
-        values.put(COLUMN_COURSE1_DAY2, user.getCourseCode(1));
+        values.put(COLUMN_COURSE1_DAY1, user.getCourseDay1(1));
+        values.put(COLUMN_COURSE1_DAY2, user.getCourseDay2(1));
         values.put(COLUMN_COURSE2_CODE, user.getCourseCode(2));
-        values.put(COLUMN_COURSE2_DAY1, user.getCourseCode(2));
-        values.put(COLUMN_COURSE2_DAY2, user.getCourseCode(2));
+        values.put(COLUMN_COURSE2_DAY1, user.getCourseDay1(2));
+        values.put(COLUMN_COURSE2_DAY2, user.getCourseDay2(2));
         values.put(COLUMN_COURSE3_CODE, user.getCourseCode(3));
-        values.put(COLUMN_COURSE3_DAY1, user.getCourseCode(3));
-        values.put(COLUMN_COURSE3_DAY2, user.getCourseCode(3));
+        values.put(COLUMN_COURSE3_DAY1, user.getCourseDay1(3));
+        values.put(COLUMN_COURSE3_DAY2, user.getCourseDay2(3));
         values.put(COLUMN_COURSE4_CODE, user.getCourseCode(4));
-        values.put(COLUMN_COURSE4_DAY1, user.getCourseCode(4));
-        values.put(COLUMN_COURSE4_DAY2, user.getCourseCode(4));
+        values.put(COLUMN_COURSE4_DAY1, user.getCourseDay1(4));
+        values.put(COLUMN_COURSE4_DAY2, user.getCourseDay2(4));
         values.put(COLUMN_COURSE5_CODE, user.getCourseCode(5));
-        values.put(COLUMN_COURSE5_DAY1, user.getCourseCode(5));
-        values.put(COLUMN_COURSE5_DAY2, user.getCourseCode(5));
+        values.put(COLUMN_COURSE5_DAY1, user.getCourseDay1(5));
+        values.put(COLUMN_COURSE5_DAY2, user.getCourseDay2(5));
 
 
 

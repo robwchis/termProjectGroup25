@@ -28,7 +28,7 @@ public class FinalFragment extends Fragment {
     //xml stuff
 
     private FragmentFinalBinding binding;
-    String username;
+    String username, password;
     String[] names, codes, days, hours, capacities, descs,inst, tinst, tnames, tcodes, tdays, thours, tcapacities, tdescs;
     RecyclerView recyclerView;
     FinalAdapter adapter;
@@ -87,9 +87,8 @@ public class FinalFragment extends Fragment {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 username = result.getString("beepboop");
-                Boolean data2 = result.getBoolean("beepboop2");
+                password = result.getString("beepboop2");
 
-                System.out.println("data2: "+data2);
                 nameText.setText("Username: "+username);
             }
         });
@@ -173,7 +172,8 @@ public class FinalFragment extends Fragment {
                 System.out.println("SAME" +  newText);
 
                 Bundle bundle = new Bundle();
-                bundle.putString("beepboop", newText); // Put anything what you want
+                bundle.putString("beepboop", username); // Put anything what you want
+                bundle.putString("beepboop :)", password);
 
 
                 getParentFragmentManager().setFragmentResult("beepboopBundle",bundle);

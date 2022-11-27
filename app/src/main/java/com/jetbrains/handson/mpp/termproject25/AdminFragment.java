@@ -186,7 +186,7 @@ public class AdminFragment extends Fragment {
                 while(cursor.moveToNext()){
                     if(cursor.getString(0).equals(bar)){
 
-                        User dC = new User(cursor.getString(0), cursor.getString(1), 0 );
+                        User dC = new User(cursor.getString(0), cursor.getString(1) );
                         uDB.removeUser(dC);
 
                         delBar.setText("Username");
@@ -199,7 +199,7 @@ public class AdminFragment extends Fragment {
                 while(icursor.moveToNext()){
                     if(icursor.getString(0).equals(bar)){
 
-                        User dC = new User(icursor.getString(0), icursor.getString(1), 0 );
+                        User dC = new User(icursor.getString(0), icursor.getString(1) );
                         iDB.removeUser(dC);
 
                         delBar.setText("Username");
