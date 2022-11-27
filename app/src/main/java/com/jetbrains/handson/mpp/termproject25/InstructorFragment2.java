@@ -206,7 +206,7 @@ public class InstructorFragment2 extends Fragment {
                 while(cursor.moveToNext()){
 
                     if((cursor.getString(6).equals(""))) {
-                        if(cursor.getString(0).equals(ns) && (cursor.getString(1).equals(cs))){
+                        if(cursor.getString(0).equals(ns) || (cursor.getString(1).equals(cs))){
                             names[i] = cursor.getString(0);
                             codes[i] = cursor.getString(1);
                             //System.out.println("name" + names[i]+ " code " + codes[i]);
