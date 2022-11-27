@@ -189,7 +189,19 @@ public class InstructorFragment extends Fragment {
                             System.out.println("ERR DAY");
                         } else {
                             String[] dumb = d.split("/", 2);
-                            re.setCourseDays(dumb[0], dumb[1]);
+
+                            if ((dumb[0].equals("Mon") || dumb[0].equals("Tue") || dumb[0].equals("Wed") || dumb[0].equals("Thu") || dumb[0].equals("Fri") || dumb[0].equals("Sat") || dumb[0].equals("Sun"))
+                            && (dumb[1].equals("Mon") || dumb[1].equals("Tue") || dumb[1].equals("Wed") || dumb[1].equals("Thu") || dumb[1].equals("Fri") || dumb[1].equals("Sat") || dumb[1].equals("Sun")))
+                            {
+                                re.setCourseDays(dumb[0], dumb[1]);
+                            } else {
+                                toast = Toast.makeText(context, "ERROR: Days formatted incorrectly", Toast.LENGTH_LONG);
+                                toast.show();
+                                good = false;
+                                System.out.println("ERR DAY");
+                            }
+
+
                         }
 
 

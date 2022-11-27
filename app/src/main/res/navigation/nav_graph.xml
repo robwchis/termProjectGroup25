@@ -46,7 +46,14 @@
     <fragment
         android:id="@+id/finalFragment"
         android:name="com.jetbrains.handson.mpp.termproject25.FinalFragment"
-        android:label="FinalFragment" />
+        android:label="FinalFragment" >
+        <action
+            android:id="@+id/action_finalFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_finalFragment_to_finalFragment2"
+            app:destination="@id/finalFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/adminFragment"
         android:name="com.jetbrains.handson.mpp.termproject25.AdminFragment"
@@ -75,5 +82,13 @@
         <action
             android:id="@+id/action_instructorFragment2_to_instructorFragment"
             app:destination="@id/instructorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/finalFragment2"
+        android:name="com.jetbrains.handson.mpp.termproject25.FinalFragment2"
+        android:label="FinalFragment2" >
+        <action
+            android:id="@+id/action_finalFragment2_to_finalFragment"
+            app:destination="@id/finalFragment" />
     </fragment>
 </navigation>
