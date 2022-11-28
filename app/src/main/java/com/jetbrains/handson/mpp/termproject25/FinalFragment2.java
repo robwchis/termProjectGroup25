@@ -160,12 +160,69 @@ public class FinalFragment2 extends Fragment {
             @Override
             public void onButtonClick(int pos) {
 
+//                User u = new User(data, data2);
+//                uDB.removeUser(u);
+//
+//                u.setCourse(tcodes[pos], tdays[pos], thours[pos]);
+//                uDB.addUser(u);
+//                System.out.println(u.getCourseCode(1) + " " + u.getCourseDay1(1) + " " +u.getCourseDay2(1) );
+
                 User u = new User(data, data2);
+                Cursor cursor = uDB.getData();
+
+                String course1= "",course2= "",course3= "",course4= "",course5 = "";
+
+                while(cursor.moveToNext()) {
+
+                    if (cursor.getString(0).equals(data)) {
+                        System.out.println("SUPERNATURAL TESTIUNG");
+                        if (!(cursor.getString(2).toString().equals(""))) {
+                            System.out.println("HAS ONE AL:READY");
+                            course1 = cursor.getString(2) + "_" + cursor.getString(3) + "_" + cursor.getString(4) + "_";
+
+                            if (!(cursor.getString(5).toString().equals(""))) {
+
+                                course2 = cursor.getString(5) + "_" + cursor.getString(6) + "_" + cursor.getString(7) + "_";
+
+                                if (!(cursor.getString(8).toString().equals(""))) {
+
+                                    course3 = cursor.getString(8) + "_" + cursor.getString(9) + "_" + cursor.getString(10) + "_";
+
+                                    if (!(cursor.getString(11).toString().equals(""))) {
+
+                                        course4 = cursor.getString(11) + "_" + cursor.getString(12) + "_" + cursor.getString(13) + "_";
+
+                                        if (!(cursor.getString(14).toString().equals(""))) {
+
+                                            course5 = cursor.getString(14) + "_" + cursor.getString(15) + "_" + cursor.getString(16) + "_";
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+
+
                 uDB.removeUser(u);
 
+                if(!course1.equals("")){
+
+                    String[] temp = course1.split("_");
+                    System.out.println(course1);
+                    String[] day1 = temp[1].split("@");
+                    String[] day2 = temp[2].split("@");
+
+                    u.setCourse(temp[0], day1[0]+"/"+day2[0], day1[1]+"/"+day2[1]);
+
+                }
+
                 u.setCourse(tcodes[pos], tdays[pos], thours[pos]);
+
                 uDB.addUser(u);
-                System.out.println(u.getCourseCode(1) + " " + u.getCourseDay1(1) + " " +u.getCourseDay2(1) );
 
             }
         });
@@ -230,39 +287,41 @@ public class FinalFragment2 extends Fragment {
                 User u = new User(data, data2);
                 Cursor cursor = uDB.getData();
 
-                while(!cursor.getString(0).equals(data)){
-                    cursor.moveToNext();
-                }
-
-                System.out.println("XD" + cursor.getString(0));
                 String course1= "",course2= "",course3= "",course4= "",course5 = "";
 
+                while(cursor.moveToNext()) {
 
-                if(!(cursor.getString(2).toString().equals(""))){
-                    System.out.println("HAS ONE AL:READY");
-                    course1 = cursor.getString(2)+ "_" + cursor.getString(3)+ "_" + cursor.getString(4)+ "_";
+                    if (cursor.getString(0).equals(data)) {
+                        System.out.println("SUPERNATURAL TESTIUNG");
+                        if (!(cursor.getString(2).toString().equals(""))) {
+                            System.out.println("HAS ONE AL:READY");
+                            course1 = cursor.getString(2) + "_" + cursor.getString(3) + "_" + cursor.getString(4) + "_";
 
-                    if(!(cursor.getString(5).toString().equals(""))){
+                            if (!(cursor.getString(5).toString().equals(""))) {
 
-                        course2 = cursor.getString(5)+ "_" + cursor.getString(6)+ "_" + cursor.getString(7)+ "_";
+                                course2 = cursor.getString(5) + "_" + cursor.getString(6) + "_" + cursor.getString(7) + "_";
 
-                        if(!(cursor.getString(8).toString().equals(""))){
+                                if (!(cursor.getString(8).toString().equals(""))) {
 
-                            course3 = cursor.getString(8)+ "_" + cursor.getString(9)+ "_" + cursor.getString(10)+ "_";
+                                    course3 = cursor.getString(8) + "_" + cursor.getString(9) + "_" + cursor.getString(10) + "_";
 
-                            if(!(cursor.getString(11).toString().equals(""))){
+                                    if (!(cursor.getString(11).toString().equals(""))) {
 
-                                course4 = cursor.getString(11)+ "_" + cursor.getString(12)+ "_" + cursor.getString(13)+ "_";
+                                        course4 = cursor.getString(11) + "_" + cursor.getString(12) + "_" + cursor.getString(13) + "_";
 
-                                if(!(cursor.getString(14).toString().equals(""))){
+                                        if (!(cursor.getString(14).toString().equals(""))) {
 
-                                    course5 = cursor.getString(14)+ "_" + cursor.getString(15)+ "_" + cursor.getString(16)+ "_";
+                                            course5 = cursor.getString(14) + "_" + cursor.getString(15) + "_" + cursor.getString(16) + "_";
 
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
+
+
 
 
                 uDB.removeUser(u);

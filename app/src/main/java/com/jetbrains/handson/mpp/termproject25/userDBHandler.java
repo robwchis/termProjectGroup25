@@ -109,4 +109,5 @@ public class userDBHandler extends SQLiteOpenHelper {
         db.delete(TABLE_NAME, "username=?", new String[]{user.getUsername()});
         db.close();
     }
+
 }

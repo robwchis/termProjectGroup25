@@ -80,6 +80,7 @@ public class FinalFragment extends Fragment {
 
         TextView nameText = view.findViewById(R.id.txt_displayUsernameInst);
         adminDBHandler db = new adminDBHandler(FinalFragment.this.getContext());
+        userDBHandler uDB = new userDBHandler((FinalFragment.this.getContext()));
 
 
 
@@ -100,20 +101,30 @@ public class FinalFragment extends Fragment {
         binding.loadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                names = new String[100];
-                codes = new String[100];
-                days = new String[100];
-                hours = new String[100];
-                capacities = new String[100];
-                descs = new String[100];
-                inst = new String[100];
+                names = new String[5];
+                codes = new String[5];
+                days = new String[5];
+                hours = new String[5];
+                capacities = new String[5];
+                descs = new String[5];
+                inst = new String[5];
+
+                Cursor uc = uDB.getData();
+
+                while(uc.moveToNext()){
+                    if(uc.getString(0).equals(username)){
+
+                        
+
+                    }
+                }
 
                 Cursor cursor = db.getData();
 
                 int i = 0;
                 while(cursor.moveToNext()){
 
-                    if(cursor.getString(6) != null) {
+                    if(cursor.getString(0).equals(username)) {
                         System.out.println("HELLO" + username + "aa" +cursor.getString(6) );
                         if (cursor.getString(6).equals(username)) {
                             names[i] = cursor.getString(0);

@@ -69,6 +69,7 @@ public class ThirdFragment extends Fragment {
                 if (cursor.getCount() == 0) {
                     Toast.makeText(ThirdFragment.this.getContext(), "Nothing to show", Toast.LENGTH_SHORT).show();
                 } else {
+
                     while (cursor.moveToNext()) {
 
 //                        System.out.println(cursor.getString(0) + " =? " + etUsername.getText().toString());
