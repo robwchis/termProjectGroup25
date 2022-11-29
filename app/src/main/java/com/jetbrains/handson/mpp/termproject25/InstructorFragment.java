@@ -213,13 +213,54 @@ public class InstructorFragment extends Fragment {
                             System.out.println("ERR DAY");
                         } else {
                             String[] dumb2 = h.split("/", 2);
-                            re.setCourseTimes(dumb2[0], dumb2[1]);
+
+                            if (!dumb2[0].contains(":") || !dumb2[1].contains(":")) {
+                                toast = Toast.makeText(context, "ERROR: Hours formatted incorrectly", Toast.LENGTH_LONG);
+                                toast.show();
+                                good = false;
+                                System.out.println("ERR DAY");
+                            } else {
+                                try {
+                                    String[] dumb2a = dumb2[0].split(":",2);
+                                    String[] dumb2b = dumb2[1].split(":",2);
+                                    if (Integer.parseInt(dumb2a[0]) > 24 || Integer.parseInt(dumb2a[0]) < 0 || Integer.parseInt(dumb2a[1]) > 59 || Integer.parseInt(dumb2a[1]) < 0 ||
+                                            Integer.parseInt(dumb2b[0]) > 24 || Integer.parseInt(dumb2b[0]) < 0 || Integer.parseInt(dumb2b[1]) > 59 || Integer.parseInt(dumb2b[1]) < 0 || dumb2[0].equals(dumb2[1])) {
+                                        toast = Toast.makeText(context, "ERROR: Hours formatted incorrectly", Toast.LENGTH_LONG);
+                                        toast.show();
+                                        good = false;
+                                        System.out.println("ERR DAY");
+                                    } else {
+                                        re.setCourseTimes(dumb2[0], dumb2[1]);
+                                    }
+
+
+
+                                } catch (Exception e) {
+                                    toast = Toast.makeText(context, "ERROR: Hours formatted incorrectly", Toast.LENGTH_LONG);
+                                    toast.show();
+                                    good = false;
+                                    System.out.println("ERR DAY");
+                                }
+                            }
+
+
+
                         }
 
 
                         try {
                             final int i1 = Integer.parseInt(cap) + 10;
-                            re.setStudentCapacity(cap);
+
+                            if (Integer.parseInt(cap) < 0) {
+                                System.out.println("ERR CAP");
+                                toast = Toast.makeText(context, "ERROR: Capacity formatted incorrectly", Toast.LENGTH_LONG);
+                                toast.show();
+                                good = false;
+                            } else {
+                                re.setStudentCapacity(cap);
+                            }
+
+
                         } catch(Exception e) {
                             System.out.println("ERR CAP");
                             toast = Toast.makeText(context, "ERROR: Capacity formatted incorrectly", Toast.LENGTH_LONG);
