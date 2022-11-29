@@ -42,6 +42,11 @@ public class FirstFragment extends Fragment {
             public void onClick(View view) {
                 NavHostFragment.findNavController(FirstFragment.this)
                         .navigate(R.id.action_FirstFragment_to_thirdFragment);
+                userDBHandler u = new userDBHandler(FirstFragment.this.getContext());
+
+                //u.resetTable();
+
+
             }
         });
     }

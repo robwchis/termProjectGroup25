@@ -88,18 +88,18 @@ public class FinalAdapter extends RecyclerView.Adapter<FinalAdapter.finalViewHol
                 public void onClick(View view) { listener.onButtonClick(Integer.parseInt((String) posView.getText())); }
             });
 
-            button2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int posPut = Integer.parseInt((String) posView.getText());
-                    String dPut = dayView.getText().toString();
-                    String hPut = hourView.getText().toString();
-                    String capPut = capView.getText().toString();
-                    String descPut = descView.getText().toString();
-
-                    listener2.onButton2Click(posPut, dPut, hPut, capPut, descPut);
-                }
-            });
+//            button2.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    int posPut = Integer.parseInt((String) posView.getText());
+//                    String dPut = dayView.getText().toString();
+//                    String hPut = hourView.getText().toString();
+//                    String capPut = capView.getText().toString();
+//                    String descPut = descView.getText().toString();
+//
+//                    listener2.onButton2Click(posPut, dPut, hPut, capPut, descPut);
+//                }
+//            });
 
         }
 

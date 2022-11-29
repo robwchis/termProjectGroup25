@@ -105,7 +105,7 @@ public class FinalFragment2 extends Fragment {
 
 
                 instructor = String.valueOf(data);
-                txtUsernameIF2.setText(data +" : "+ data2);
+                txtUsernameIF2.setText(data);
 
             }
         });
@@ -159,16 +159,12 @@ public class FinalFragment2 extends Fragment {
         FinalAdapter2 adapter = new FinalAdapter2(this.getContext(), tnames, tcodes, tdays, thours, tcapacities, tdescs, tinst, new FinalAdapter2.OnButtonClickListener() {
             @Override
             public void onButtonClick(int pos) {
-
-//                User u = new User(data, data2);
-//                uDB.removeUser(u);
-//
-//                u.setCourse(tcodes[pos], tdays[pos], thours[pos]);
-//                uDB.addUser(u);
-//                System.out.println(u.getCourseCode(1) + " " + u.getCourseDay1(1) + " " +u.getCourseDay2(1) );
+                //adds
 
                 User u = new User(data, data2);
                 Cursor cursor = uDB.getData();
+                String[] times = new String[10];
+                int i = 0;
 
                 String course1= "",course2= "",course3= "",course4= "",course5 = "";
 
@@ -176,26 +172,42 @@ public class FinalFragment2 extends Fragment {
 
                     if (cursor.getString(0).equals(data)) {
                         System.out.println("SUPERNATURAL TESTIUNG");
-                        if (!(cursor.getString(2).toString().equals(""))) {
+                        if (!(cursor.getString(2).equals(""))) {
                             System.out.println("HAS ONE AL:READY");
                             course1 = cursor.getString(2) + "_" + cursor.getString(3) + "_" + cursor.getString(4) + "_";
 
-                            if (!(cursor.getString(5).toString().equals(""))) {
+                            times[i] = cursor.getString(3);
+                            i++;
+                            times[i] = cursor.getString(4);
+                            i++;
+                            if (!(cursor.getString(5).equals(""))) {
 
                                 course2 = cursor.getString(5) + "_" + cursor.getString(6) + "_" + cursor.getString(7) + "_";
-
-                                if (!(cursor.getString(8).toString().equals(""))) {
+                                times[i] = cursor.getString(6);
+                                i++;
+                                times[i] = cursor.getString(7);
+                                i++;
+                                if (!(cursor.getString(8).equals(""))) {
 
                                     course3 = cursor.getString(8) + "_" + cursor.getString(9) + "_" + cursor.getString(10) + "_";
-
-                                    if (!(cursor.getString(11).toString().equals(""))) {
+                                    times[i] = cursor.getString(9);
+                                    i++;
+                                    times[i] = cursor.getString(10);
+                                    i++;
+                                    if (!(cursor.getString(11).equals(""))) {
 
                                         course4 = cursor.getString(11) + "_" + cursor.getString(12) + "_" + cursor.getString(13) + "_";
-
-                                        if (!(cursor.getString(14).toString().equals(""))) {
+                                        times[i] = cursor.getString(12);
+                                        i++;
+                                        times[i] = cursor.getString(13);
+                                        i++;
+                                        if (!(cursor.getString(14).equals(""))) {
 
                                             course5 = cursor.getString(14) + "_" + cursor.getString(15) + "_" + cursor.getString(16) + "_";
-
+                                            times[i] = cursor.getString(15);
+                                            i++;
+                                            times[i] = cursor.getString(16);
+                                            i++;
                                         }
                                     }
                                 }
@@ -206,25 +218,77 @@ public class FinalFragment2 extends Fragment {
 
 
 
+                String[] tempD = tdays[pos].split("/");
+                String[] tempH = thours[pos].split("/");
 
-                uDB.removeUser(u);
+                boolean gate = true;
+                for(int x = 0; x < i; x++) {
 
-                if(!course1.equals("")){
+                    if (times[x].equals(tempD[0] + "@" + tempH[0]) || times[x].equals(tempD[1] + "@" + tempH[1])) {
 
-                    String[] temp = course1.split("_");
-                    System.out.println(course1);
-                    String[] day1 = temp[1].split("@");
-                    String[] day2 = temp[2].split("@");
-
-                    u.setCourse(temp[0], day1[0]+"/"+day2[0], day1[1]+"/"+day2[1]);
-
+                        //sends error message
+                        gate = false;
+                        Toast t = Toast.makeText(FinalFragment2.this.getContext(), "Course Times conflict with a currently enrolled course.", Toast.LENGTH_LONG);
+                        t.show();
+                    }
                 }
 
-                u.setCourse(tcodes[pos], tdays[pos], thours[pos]);
+                if(gate == true) {
+                    uDB.removeUser(u);
 
-                uDB.addUser(u);
+                    if (!course1.equals("")) {
 
-            }
+                        String[] temp = course1.split("_");
+                        System.out.println(course1);
+                        String[] day1 = temp[1].split("@");
+                        String[] day2 = temp[2].split("@");
+
+                        u.setCourse(temp[0], day1[0] + "/" + day2[0], day1[1] + "/" + day2[1]);
+
+                    }
+
+                    if (!course2.equals("")) {
+
+                        String[] temp = course2.split("_");
+                        System.out.println(course1);
+                        String[] day1 = temp[1].split("@");
+                        String[] day2 = temp[2].split("@");
+
+                        u.setCourse(temp[0], day1[0] + "/" + day2[0], day1[1] + "/" + day2[1]);
+
+                    }
+
+                    if (!course3.equals("")) {
+
+                        String[] temp = course3.split("_");
+                        System.out.println(course1);
+                        String[] day1 = temp[1].split("@");
+                        String[] day2 = temp[2].split("@");
+
+                        u.setCourse(temp[0], day1[0] + "/" + day2[0], day1[1] + "/" + day2[1]);
+
+                    }
+
+                    if (!course4.equals("")) {
+
+                        String[] temp = course4.split("_");
+                        System.out.println(course1);
+                        String[] day1 = temp[1].split("@");
+                        String[] day2 = temp[2].split("@");
+
+                        u.setCourse(temp[0], day1[0] + "/" + day2[0], day1[1] + "/" + day2[1]);
+
+                    }
+
+                    u.setCourse(tcodes[pos], tdays[pos], thours[pos]);
+
+                    uDB.addUser(u);
+                }
+                }
+
+
+
+
         });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -284,8 +348,12 @@ public class FinalFragment2 extends Fragment {
             @Override
             public void onButtonClick(int pos) {
                 // ENROLL HERE @JAMES
+                //adds
+
                 User u = new User(data, data2);
                 Cursor cursor = uDB.getData();
+                String[] times = new String[10];
+                int i = 0;
 
                 String course1= "",course2= "",course3= "",course4= "",course5 = "";
 
@@ -297,22 +365,38 @@ public class FinalFragment2 extends Fragment {
                             System.out.println("HAS ONE AL:READY");
                             course1 = cursor.getString(2) + "_" + cursor.getString(3) + "_" + cursor.getString(4) + "_";
 
+                            times[i] = cursor.getString(3);
+                            i++;
+                            times[i] = cursor.getString(4);
+                            i++;
                             if (!(cursor.getString(5).toString().equals(""))) {
 
                                 course2 = cursor.getString(5) + "_" + cursor.getString(6) + "_" + cursor.getString(7) + "_";
-
+                                times[i] = cursor.getString(6);
+                                i++;
+                                times[i] = cursor.getString(7);
+                                i++;
                                 if (!(cursor.getString(8).toString().equals(""))) {
 
                                     course3 = cursor.getString(8) + "_" + cursor.getString(9) + "_" + cursor.getString(10) + "_";
-
+                                    times[i] = cursor.getString(9);
+                                    i++;
+                                    times[i] = cursor.getString(10);
+                                    i++;
                                     if (!(cursor.getString(11).toString().equals(""))) {
 
                                         course4 = cursor.getString(11) + "_" + cursor.getString(12) + "_" + cursor.getString(13) + "_";
-
+                                        times[i] = cursor.getString(12);
+                                        i++;
+                                        times[i] = cursor.getString(13);
+                                        i++;
                                         if (!(cursor.getString(14).toString().equals(""))) {
 
                                             course5 = cursor.getString(14) + "_" + cursor.getString(15) + "_" + cursor.getString(16) + "_";
-
+                                            times[i] = cursor.getString(15);
+                                            i++;
+                                            times[i] = cursor.getString(16);
+                                            i++;
                                         }
                                     }
                                 }
@@ -323,22 +407,72 @@ public class FinalFragment2 extends Fragment {
 
 
 
+                String[] tempD = tdays[pos].split("/");
+                String[] tempH = thours[pos].split("/");
 
-                uDB.removeUser(u);
+                boolean gate = true;
+                for(int x = 0; x < i; x++) {
 
-                if(!course1.equals("")){
+                    if (times[x].equals(tempD[0] + "@" + tempH[0]) || times[x].equals(tempD[1] + "@" + tempH[1])) {
 
-                    String[] temp = course1.split("_");
-                    u.setCourse(temp[1], temp[1], temp[2]);
+                        //sends error message
+                        gate = false;
+                        Toast t = Toast.makeText(FinalFragment2.this.getContext(), "Course already has instructor.", Toast.LENGTH_LONG);
 
+                    }
                 }
 
-                u.setCourse(tcodes[pos], tdays[pos], thours[pos]);
+                if(gate == true) {
+                    uDB.removeUser(u);
 
-                uDB.addUser(u);
-                System.out.println(u.getCourseCode(1) + " " + u.getCourseDay1(1) + " " +u.getCourseDay2(1) );
+                    if (!course1.equals("")) {
 
-            }
+                        String[] temp = course1.split("_");
+                        System.out.println(course1);
+                        String[] day1 = temp[1].split("@");
+                        String[] day2 = temp[2].split("@");
+
+                        u.setCourse(temp[0], day1[0] + "/" + day2[0], day1[1] + "/" + day2[1]);
+
+                    }
+
+                    if (!course2.equals("")) {
+
+                        String[] temp = course2.split("_");
+                        System.out.println(course1);
+                        String[] day1 = temp[1].split("@");
+                        String[] day2 = temp[2].split("@");
+
+                        u.setCourse(temp[0], day1[0] + "/" + day2[0], day1[1] + "/" + day2[1]);
+
+                    }
+
+                    if (!course3.equals("")) {
+
+                        String[] temp = course3.split("_");
+                        System.out.println(course1);
+                        String[] day1 = temp[1].split("@");
+                        String[] day2 = temp[2].split("@");
+
+                        u.setCourse(temp[0], day1[0] + "/" + day2[0], day1[1] + "/" + day2[1]);
+
+                    }
+
+                    if (!course4.equals("")) {
+
+                        String[] temp = course4.split("_");
+                        System.out.println(course1);
+                        String[] day1 = temp[1].split("@");
+                        String[] day2 = temp[2].split("@");
+
+                        u.setCourse(temp[0], day1[0] + "/" + day2[0], day1[1] + "/" + day2[1]);
+
+                    }
+
+                    u.setCourse(tcodes[pos], tdays[pos], thours[pos]);
+
+                    uDB.addUser(u);
+                }           }
         });
 
         recyclerView.setAdapter(adapter);

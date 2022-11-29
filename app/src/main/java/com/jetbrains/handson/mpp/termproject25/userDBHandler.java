@@ -27,7 +27,7 @@ public class userDBHandler extends SQLiteOpenHelper {
     private static final String COLUMN_COURSE5_DAY1 = "c5days";
     private static final String COLUMN_COURSE5_DAY2 = "c5hours";
 
-    private static final String DATABASE_NAME = "updatedUsers.db";
+    private static final String DATABASE_NAME = "newupdatedUsers.db";
     private static final int DATABASE_VERSION = 1;
 
 
@@ -100,6 +100,12 @@ public class userDBHandler extends SQLiteOpenHelper {
 
         db.insert(TABLE_NAME, null, values);
         db.close();
+    }
+
+    public void resetTable(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("DROP TABLE " + TABLE_NAME);
     }
 
     public void removeUser(User user){
