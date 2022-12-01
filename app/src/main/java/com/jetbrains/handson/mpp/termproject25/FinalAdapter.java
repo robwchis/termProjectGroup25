@@ -54,6 +54,7 @@ public class FinalAdapter extends RecyclerView.Adapter<FinalAdapter.finalViewHol
         holder.hourView.setText(hours[position]);
         holder.capView.setText(capacites[position]);
         holder.descView.setText(descriptions[position]);
+        holder.instView.setText(instructor[position]);
         holder.posView.setText(String.valueOf(position));
     }
 
@@ -69,7 +70,7 @@ public class FinalAdapter extends RecyclerView.Adapter<FinalAdapter.finalViewHol
 
     public class finalViewHolder extends RecyclerView.ViewHolder {
 
-        TextView nameView, codeView, posView, dayView, hourView, capView, descView;
+        TextView nameView, codeView, posView, dayView, hourView, capView, descView, instView;
         Button button, button2;
 
         public finalViewHolder(@NonNull View itemView) {
@@ -81,6 +82,7 @@ public class FinalAdapter extends RecyclerView.Adapter<FinalAdapter.finalViewHol
             hourView = itemView.findViewById(R.id.txtHours);
             capView = itemView.findViewById(R.id.txtCap);
             descView = itemView.findViewById(R.id.txtDesc);
+            instView = itemView.findViewById(R.id.inst);
             button = itemView.findViewById(R.id.drop);
 
             button.setOnClickListener(new View.OnClickListener() {
