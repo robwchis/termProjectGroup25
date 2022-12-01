@@ -82,6 +82,7 @@ public class ThirdFragment extends Fragment {
                             bundle.putString("beepboop", etUsername.getText().toString()); // Put anything what you want
                             bundle.putString("beepboop2", etPassword.getText().toString());
 
+
                             getParentFragmentManager().setFragmentResult("beepboop",bundle);
 
 
@@ -108,7 +109,7 @@ public class ThirdFragment extends Fragment {
 
                             Bundle bundle = new Bundle();
                             bundle.putString("beepboop", etUsername.getText().toString()); // Put anything what you want
-                            bundle.putString("beepboop :)", etPassword.getText().toString());
+                            bundle.putString("beepboop2", etPassword.getText().toString());
 
                             getParentFragmentManager().setFragmentResult("beepboop",bundle);
 

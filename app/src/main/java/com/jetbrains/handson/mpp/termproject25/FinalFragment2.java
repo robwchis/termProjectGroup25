@@ -53,7 +53,7 @@ public class FinalFragment2 extends Fragment {
                 System.out.println("!!!!gets here fo sure!!!!");
                 Bundle bundle = new Bundle();
                 bundle.putString("beepboop", String.valueOf(txtUsernameIF2.getText())); // Put anything what you want
-
+                bundle.putString("beepboop2", String.valueOf(data2));
 
                 getParentFragmentManager().setFragmentResult("beepboop",bundle);
 

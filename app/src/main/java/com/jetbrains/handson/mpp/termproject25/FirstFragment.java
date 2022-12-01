@@ -44,8 +44,8 @@ public class FirstFragment extends Fragment {
                         .navigate(R.id.action_FirstFragment_to_thirdFragment);
                 userDBHandler u = new userDBHandler(FirstFragment.this.getContext());
 
-                //u.resetTable();
-
+//                User ut = new User("user", null);
+//                u.removeUser(ut);
 
             }
         });
